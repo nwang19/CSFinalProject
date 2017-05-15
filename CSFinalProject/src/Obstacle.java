@@ -1,3 +1,5 @@
+import java.awt.Image;
+
 
 public class Obstacle {
 
@@ -15,17 +17,17 @@ public class Obstacle {
 		return myLoc;
 	}
 	
-	public Location setLoc(Location loc)
+	public void setLoc(Location loc)
 	{
 		myLoc = loc;
 	}
 	
-	public getImg(Image img)
+	public Image getImg(Image img)
 	{
 		return myImg;
 	}
 	
-	public setImg(Image img)
+	public void setImg(Image img)
 	{
 		myImg = img;
 	}

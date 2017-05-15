@@ -50,6 +50,7 @@ public class GUI implements KeyListener, ActionListener{
 	public void updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms)
 	{
 		
+		repaint();
 	}
 
 	//shows new life count
@@ -62,28 +63,23 @@ public class GUI implements KeyListener, ActionListener{
 	//public void paint(Graphics g)
 	//public void repaint()
 
-
-	//@Override
 	public void keyPressed(KeyEvent arg0)
 	{
 		timer.start();
 		
 	}
 
-	//@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		timer.stop();
 		
 	}
 
-	//@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	//@Override
 	public void actionPerformed(ActionEvent event)
 	{
 		if (event.getSource() == playButton)

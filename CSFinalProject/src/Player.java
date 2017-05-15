@@ -16,14 +16,14 @@ public class Player
 		upKey = false;
 		rightKey = false;
 		leftKey = false;
-		control = new Controller(grid);
+		control = new Controller(gr);
 		gr = new Grid();
 		
 	}
 
 	public int getLives()
 	{
-		reurn lives;
+		return lives;
 	}
 	public void setLives(int numLives)
 	{
@@ -31,7 +31,7 @@ public class Player
 	}
 
 	//passes location to Controller to check if it can move there by calling Grid’s checkNextLoc
-	public Location checkLocation();
+	public Location checkLocation()
 	{
 		
 		
