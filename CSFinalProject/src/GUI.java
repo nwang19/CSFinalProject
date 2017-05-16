@@ -46,7 +46,7 @@ public class GUI implements KeyListener, ActionListener{
 		screen.setVisible(true);
 	}
 
-	//changes player’s position. Note: should repaint at the end
+	//changes playerâ€™s position. Note: should repaint at the end
 	public void updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms)
 	{
 		
@@ -63,19 +63,31 @@ public class GUI implements KeyListener, ActionListener{
 	//public void paint(Graphics g)
 	//public void repaint()
 
-	public void keyPressed(KeyEvent arg0)
+	public void keyPressed(KeyEvent event)
 	{
+		if(event.getKeyCode() == KeyEvent.VK_LEFT)
+		{
+			//
+		}
+		else if (event.getKeyCode() == KeyEvent.VK_RIGHT)
+		{
+			//
+		}
+		else if(event.getKeyCode() == KeyEvent.VK_UP)
+		{
+			//
+		}
 		timer.start();
 		
 	}
 
-	public void keyReleased(KeyEvent arg0) {
+	public void keyReleased(KeyEvent event) {
 		// TODO Auto-generated method stub
 		timer.stop();
 		
 	}
 
-	public void keyTyped(KeyEvent arg0) {
+	public void keyTyped(KeyEvent event) {
 		// TODO Auto-generated method stub
 		
 	}
