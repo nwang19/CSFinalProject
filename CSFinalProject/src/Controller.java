@@ -79,6 +79,8 @@ public class Controller implements ActionListener, KeyListener
 			{
 				player.setLocation(left);
 			}
+		 gui.updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms);
+
 		}
 	}
 
@@ -97,6 +99,7 @@ public class Controller implements ActionListener, KeyListener
 			{
 				player.setLocation(right);
 			}
+			gui.updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms);
 		}
 	}
 
@@ -115,6 +118,7 @@ public class Controller implements ActionListener, KeyListener
 			{
 				player.setLocation(up);
 			}
+			gui.updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms);
 		}
 	}
 
@@ -124,6 +128,7 @@ public class Controller implements ActionListener, KeyListener
 		player.setLocation(new Location(0, 0));
 		int num = player.getLives()
 		player.setLives(num--);
+		gui.updateLifeImg();
 	}
 
 }
