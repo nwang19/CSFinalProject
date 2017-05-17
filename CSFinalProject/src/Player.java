@@ -1,21 +1,27 @@
+import java.awt.Point;
+import java.awt.Rectangle;
 
-public class Player 
+public class Player extends Rectangle
 {
-	//Job: stores lives, gets location to move to next, and updates its record of its position
+	//Job: stores lives, gets location to move to next, and updates its record of its position.
 
 	private int lives; 
-	private Location loc; 
-	private Boolean upKey, rightKey, leftKey;
+	private Point loc; 
 	private Controller control; 
 	private Grid gr; 
 	
 	public Player()
 	{
 		lives = 3;
-		loc = new Location(0,0);
-		upKey = false;
-		rightKey = false;
-		leftKey = false;
+		control = new Controller(gr);
+		gr = new Grid();
+		
+	}
+	
+	public Player(int x, int y, int width, int height)
+	{
+		super(x, y, width, height);
+		lives = 3;
 		control = new Controller(gr);
 		gr = new Grid();
 		
@@ -25,18 +31,19 @@ public class Player
 	{
 		return lives;
 	}
+	
 	public void setLives(int numLives)
 	{
 		lives = numLives;
 	}
 
-	public void setLocation(Location newLoc)
+	/*public void setLocation(Location newLoc)
 	{
 		loc = newLoc;
 	}
 	public Location getLocation()
 	{
 		return loc;
-	}
+	}*/
 
 }
