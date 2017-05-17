@@ -1,114 +1,109 @@
-import java.awt.Container;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.util.ArrayList;
-
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.Timer;
 
-public class GUI implements KeyListener, ActionListener{
+//import java.util.ArrayList;
 
-	private Controller control;
-	private Timer timer;
-	private JFrame screen;
-	//private JFrame gameScreen;
-	private JButton playButton;
-	private JButton instrButton;
-	private JTextArea instructions;
-	private Container container;
+public class GUI implements ActionListener{
+    //private Controller control;
+    private JFrame screen;
+    private MyDrawPanel drawPanel;
+    private JButton playButton;
+    private JButton instrButton;
+    private JTextArea instructions;
+    private Container container;
 
-	public GUI()
-	{
-		timer = new Timer(1000, this);
-		JFrame screen = new JFrame("Name of Game HERE");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JButton playButton = new JButton("Play");
-		JButton instrButton = new JButton("Instructions");
-		JTextArea instructions = new JTextArea("");
-		screen.getContentPane().setLayout(new FlowLayout());
-		container = screen.getContentPane();
-		container.add(playButton);
-		container.add(instrButton);
-	}
-	
-	public void init()
-	{
-		//should we have this method to initialize different screens?
-		//i.e. startScreen, instrScreen, level1, level2, etc.
-	}
-	
-	//displays game
-	public void display()
-	{
-		screen.setVisible(true);
-	}
+    public GUI()
+    {
+        screen = new JFrame("Name of Game HERE");
+        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        drawPanel = new MyDrawPanel();
+        playButton = new JButton("Play");
+        instrButton = new JButton("Instructions");
+        instructions = new JTextArea(10, 30);
+        //screen.getContentPane().setLayout(new FlowLayout());
+        screen.getContentPane().add(BorderLayout.CENTER,drawPanel);
+        drawPanel.add(playButton, BorderLayout.NORTH);
+        drawPanel.add(instrButton, BorderLayout.SOUTH);
+        //container = screen.getContentPane();
+        //container.add(playButton, BorderLayout.CENTER);
+        //container.add(instrButton, BorderLayout.SOUTH);
+    }
 
-	//changes player’s position. Note: should repaint at the end
-	public void updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms)
-	{
-		
-		repaint();
-	}
+    public static void main(String[] args)
+    {
+        GUI gui = new GUI();
+        gui.display();
+        //gui.paint();
+    }
 
-	//shows new life count
-	public void updateLifeImg()
-	{
-		
-	}
+    public class MyDrawPanel extends JPanel
+    {  
+        public void paintComponent(Graphics g)
+        {              
+            Image image=new ImageIcon("location of image HERE").getImage();  
+            g.drawImage(image,0,0,this);
+        }  
+    }  
 
-	//superclass methods
-	//public void paint(Graphics g)
-	//public void repaint()
+    public void init(int levelNum)
+    {
+        //I'm thinking of having this method to initialize different screens?
+        //i.e. startScreen, instrScreen, level1, level2, etc.
+        //We could have a big level class (and levels extending from it) to hold each
+        //level's platforms and obstacles
+    }
 
-	public void keyPressed(KeyEvent event)
-	{
-		if(event.getKeyCode() == KeyEvent.VK_LEFT)
-		{
-			//
-		}
-		else if (event.getKeyCode() == KeyEvent.VK_RIGHT)
-		{
-			//
-		}
-		else if(event.getKeyCode() == KeyEvent.VK_UP)
-		{
-			//
-		}
-		timer.start();
-		
-	}
+    //displays game
+    public void display()
+    {
+        screen.setSize(500, 500);
+        screen.setVisible(true);
+    }
 
-	public void keyReleased(KeyEvent event) {
-		// TODO Auto-generated method stub
-		timer.stop();
-		
-	}
+    //changes player’s position. Note: should repaint at the end
+    //public void updateScreen(Player player, ArrayList<Obstacle> obstacles, ArrayList<Platform> platforms)
+    //{
 
-	public void keyTyped(KeyEvent event) {
-		// TODO Auto-generated method stub
-		
-	}
+    //  repaint();
+    //}
 
-	public void actionPerformed(ActionEvent event)
-	{
-		if (event.getSource() == playButton)
-		{
-			container.removeAll();
-			//add game (not sure how to do this?? h e l p )
-			//set game to visible
-		}
-		else if (event.getSource() == instrButton)
-		{
-			container.remove(instrButton);
-			instructions.setText("Instructions HERE");
-			instructions.setVisible(true);
-		}
-		
-	}
-	
-	//Use classloader when reading in images (in GuiTest samples)
+    //shows new life count
+    public void updateLifeImg()
+    {
+
+    }
+
+    //superclass methods
+    public void paint(Graphics g)
+    {
+        paint(g);
+        g.setColor(Color.black);
+        g.drawRect(400, 400, 100, 100);
+        g.fillRect(400, 400, 100, 100);
+    }
+    //public void repaint()
+
+    public void actionPerformed(ActionEvent event)
+    {
+        if (event.getSource() == playButton)
+        {
+            container.removeAll();
+            init(1); //should display game at level specified in parameter
+        }
+        else if (event.getSource() == instrButton)
+        {
+            container.remove(instrButton);
+            instructions.setText("Instructions HERE");
+            instructions.setEnabled(false);
+            instructions.setVisible(true);
+        }
+        else
+        {
+            //do nothing
+        }
+    }
+
+    //Use classloader when reading in images (in GuiTest samples)
 
 }
