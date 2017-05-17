@@ -1,31 +1,20 @@
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import java.awt.Rectangle;
 
-
-public class Platform {
+public class Platform extends Rectangle
+{
 
 	private Image blockImg;
-	private Location myLoc;
 	
 	public Platform()
 	{
-		myLoc = new Location(0, 0);
+		super();
 	}
 	
-	public Platform(Location loc, String imgName)
+	public Platform(int x, int y, int width, int height)
 	{
-		myLoc = loc;
-		setImg(imgName);
-	}
-	
-	public Location getLoc()
-	{
-		return myLoc;
-	}
-	
-	public void setLoc(Location loc)
-	{
-		myLoc = loc;
+		super(x, y, width, height);
 	}
 	
 	public Image getImg()
