@@ -1,28 +1,28 @@
 import java.awt.Image;
+import java.awt.Point; 
 
-
-public class Obstacle {
-
-	private Location myLoc;
+public class Obstacle 
+{
+	private Point myPoint;
 	private Image myImg;
 	
-	public Obstacle(Location loc, Image img)
+	public Obstacle(Point p, Image img)
 	{
-		myLoc = loc;
+		myPoint = p;
 		myImg = img;
 	}
 	
-	public Location getLoc()
+	public Point getPoint()
 	{
-		return myLoc;
+		return myPoint;
 	}
 	
-	public void setLoc(Location loc)
+	public void setPoint(Point p)
 	{
-		myLoc = loc;
+		myPoint = p;
 	}
 	
-	public Image getImg(Image img)
+	public Image getImg()
 	{
 		return myImg;
 	}
