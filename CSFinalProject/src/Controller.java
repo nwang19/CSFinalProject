@@ -67,11 +67,11 @@ public class Controller implements ActionListener, KeyListener
 	public void processLeft() 
 	{
 		Location loc = player.getLocation();
-		Location left = new Location(loc.getRow()-1, loc.getCol());
+		Location left = new Location(loc.getXPos()-1, loc.getYPos());
 		Location nextLoc = area.checkNextLoc(left);
 		if(nextLoc != null)
 		{
-			if(nextLoc.getRow() == 0 && nextLoc.getCol() == 0)
+			if(nextLoc.getXPos() == 0 && nextLoc.getYPos() == 0)
 			{
 				resetPos();
 			}
@@ -87,11 +87,11 @@ public class Controller implements ActionListener, KeyListener
 	public void processRight() 
 	{
 		Location loc = player.getLocation();
-		Location right = new Location(loc.getRow()+1, loc.getCol());
+		Location right = new Location(loc.getXPos()+1, loc.getYPos());
 		Location nextLoc = area.checkNextLoc(right);
 		if(nextLoc != null)
 		{
-			if(nextLoc.getRow() == 0 && nextLoc.getCol() == 0)
+			if(nextLoc.getXPos() == 0 && nextLoc.getYPos() == 0)
 			{
 				resetPos();
 			}
@@ -106,11 +106,11 @@ public class Controller implements ActionListener, KeyListener
 	public void processUp() 
 	{
 		Location loc = player.getLocation();
-		Location up = new Location(loc.getRow()-1, loc.getCol());
+		Location up = new Location(loc.getXPos(), loc.getYPos()+1);
 		Location nextLoc = area.checkNextLoc(up);
 		if(nextLoc != null)
 		{
-			if(nextLoc.getRow() == 0 && nextLoc.getCol() == 0)
+			if(nextLoc.getXPos() == 0 && nextLoc.getYPos() == 0)
 			{
 				resetPos();
 			}
@@ -126,7 +126,7 @@ public class Controller implements ActionListener, KeyListener
 	public void resetPos() 
 	{
 		player.setLocation(new Location(0, 0));
-		int num = player.getLives()
+		int num = player.getLives();
 		player.setLives(num--);
 		gui.updateLifeImg();
 	}
