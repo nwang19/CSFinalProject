@@ -44,7 +44,7 @@ public class Grid {
 			{
 				if (obj instanceof Obstacle)
 				{
-					control.initialize(); //NOT SURE IF THIS PART WORKS SINCE IT'S A NEW CONTROLLER	
+					return new Location(0, 0); //NOT SURE IF THIS PART WORKS SINCE IT'S A NEW CONTROLLER	
 				}
 				return loc;
 			}
