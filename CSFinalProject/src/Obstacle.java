@@ -1,14 +1,16 @@
 import java.awt.Image;
-import java.awt.Point; 
+import java.awt.Point;
+import java.awt.Rectangle; 
 
-public class Obstacle 
+public class Obstacle extends Rectangle
 {
 	private Point myPoint;
 	private Image myImg;
 	
-	public Obstacle(Point p, Image img)
+	public Obstacle(int x, int y, int width, int height, Image img)
 	{
-		myPoint = p;
+		super(x, y, width, height);
+		myPoint = new Point(x, y-(height/2));
 		myImg = img;
 	}
 	
@@ -20,6 +22,7 @@ public class Obstacle
 	public void setPoint(Point p)
 	{
 		myPoint = p;
+		setLocation((int)p.getX(), (int)p.getY() + (height/2));
 	}
 	
 	public Image getImg()

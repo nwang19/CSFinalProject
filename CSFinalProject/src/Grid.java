@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.util.ArrayList;
 
 
@@ -34,19 +35,33 @@ public class Grid {
 		control = new Controller(); //(???)
 	}
 
-	// checks if location to move to is empty and not an obstacle, returns Location or (if obstacle) null
-	public Location checkNextLoc(Location loc)
+	// checks if location to move to, returns location to move to
+	// or null, if the location is outside of the grid bounds
+	public Point checkNextLoc(Point loc, int levelNum, int state, boolean up)
 	{
 		if (isValid(loc))
 		{
-			Object obj = getObj(loc);
-			if (obj != null)
+			Level level = new Level(levelNum);
+			ArrayList<Obstacle> obstacles = level.getObstacles();
+			for (Obstacle obst : obstacles)
 			{
-				if (obj instanceof Obstacle)
+				if (obst.contains(loc))
+					return Level.start;
+			}
+			ArrayList<Platform> platforms = level.getPlatforms();
+			for (Platform block : platforms)
+			{
+				if (block.contains(loc))
 				{
-					return new Location(0, 0); //NOT SURE IF THIS PART WORKS SINCE IT'S A NEW CONTROLLER	
+					if (state == Player.LEFT)
+						//** how to get player width :/
+						loc = new Point((int)(block.getX() - Player.width), (int)loc.getY());
+					else if (state == Player.RIGHT)
+						loc = new Point((int)block.getX(), (int)loc.getY());
+					if (up == true)
+						loc = new Point((int)loc.getX(), (int)(block.getY() - block.getHeight()));
+					return loc;
 				}
-				return loc;
 			}
 		}
 		return null;
@@ -54,19 +69,19 @@ public class Grid {
 	
 	//returns the object at the specified location, or null if empty
 	//Precondition: location is valid in grid
-	public Object getObj(Location loc)
+	public Object getObj(Point loc)
 	{
-		Object obj = grid[loc.getYPos()][loc.getXPos()];
+		Object obj = grid[(int)loc.getY()][(int)loc.getX()];
 		if (obj != null)
 			return (Object)obj;
 		else
 			return null;
 	}
 	
-	//checks if location is valid in grid
-	public boolean isValid(Location loc)
+	//checks if location is within bound of grid/screen
+	public boolean isValid(Point loc)
 	{
-		if (grid != null && loc.getXPos() < numRows && loc.getYPos() < numCols)
+		if (grid != null && loc.getX()/10 < numRows && loc.getY()/10 < numCols)
 			return true;
 		else
 			return false;
