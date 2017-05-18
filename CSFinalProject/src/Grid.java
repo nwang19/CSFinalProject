@@ -10,7 +10,7 @@ public class Grid {
 	private Player player;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Platform> platforms;
-	static Location end;
+	//static Location end;
 	private int numRows = 10;
 	private int numCols = 20;
 	private Controller control;
@@ -21,12 +21,12 @@ public class Grid {
 		player = null;
 		obstacles = new ArrayList<Obstacle>();
 		platforms = new ArrayList<Platform>();
-		end = new Location(0, 0);
+		//end = new Location(0, 0);
 		control = new Controller(); //(???)
 	}
 	
 	//initializes positions of all items in the grid
-	public Grid(ArrayList<Obstacle> obst, ArrayList<Platform> plat, Location endLoc)
+	public Grid(ArrayList<Obstacle> obst, ArrayList<Platform> plat, Location endLoc, Player player)
 	{
 		Location[][] grid = new Location[numRows][numCols];
 		obstacles = obst;
@@ -55,7 +55,7 @@ public class Grid {
 				{
 					if (state == Player.LEFT)
 						//** how to get player width :/
-						loc = new Point((int)(block.getX() - Player.width), (int)loc.getY());
+						loc = new Point((int)(block.getX() - player.getWidth()), (int)loc.getY());
 					else if (state == Player.RIGHT)
 						loc = new Point((int)block.getX(), (int)loc.getY());
 					if (up == true)
@@ -81,7 +81,7 @@ public class Grid {
 	//checks if location is within bound of grid/screen
 	public boolean isValid(Point loc)
 	{
-		if (grid != null && loc.getX()/10 < numRows && loc.getY()/10 < numCols)
+		if (grid != null && loc.getX() < numRows && loc.getY() < numCols)
 			return true;
 		else
 			return false;
