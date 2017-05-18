@@ -2,46 +2,51 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-//import java.util.ArrayList;
-
-public class GUI implements ActionListener{
-    //private Controller control;
+public class GUI implements ActionListener
+{
+    private Controller control;
     private JFrame screen;
     private MyDrawPanel drawPanel;
     private JButton playButton;
     private JButton instrButton;
-    private JTextArea instructions;
     private Container container;
-
+    private JPanel panel; 
+    private JLabel gameName;
     public GUI()
     {
-        screen = new JFrame("Name of Game HERE");
-        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        ClassLoader cldr = this.getClass().getClassLoader();
+        //we'll have to add gif files or something to Eclipse make the images insertable into the program
         drawPanel = new MyDrawPanel();
+        screen = new JFrame("Westview Life");
+        gameName = new JLabel("Westview Life");
+        gameName.setFont(new Font("Serif", Font.PLAIN, 50));
+        screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         playButton = new JButton("Play");
         instrButton = new JButton("Instructions");
-        instructions = new JTextArea(10, 30);
-        //screen.getContentPane().setLayout(new FlowLayout());
-        screen.getContentPane().add(BorderLayout.CENTER,drawPanel);
-        drawPanel.add(playButton, BorderLayout.NORTH);
-        drawPanel.add(instrButton, BorderLayout.SOUTH);
-        //container = screen.getContentPane();
-        //container.add(playButton, BorderLayout.CENTER);
-        //container.add(instrButton, BorderLayout.SOUTH);
+        playButton.addActionListener(this);
+        instrButton.addActionListener(this);
+        panel = new JPanel();
+        panel.setPreferredSize(new Dimension(100, 200));
+        container = screen.getContentPane();
+        panel.add(playButton);
+        panel.add(instrButton);
+        container.add(panel, BorderLayout.SOUTH);
+        container.add(gameName, BorderLayout.NORTH); 
+        container.setBackground(Color.BLUE);
     }
 
-    public static void main(String[] args)
+   public static void main(String[] args)
     {
         GUI gui = new GUI();
         gui.display();
-        //gui.paint();
+       //gui.paint();
     }
 
-    public class MyDrawPanel extends JPanel
+    private class MyDrawPanel extends JPanel
     {  
         public void paintComponent(Graphics g)
         {              
-            Image image=new ImageIcon("location of image HERE").getImage();  
+            Image image=new ImageIcon("forest.jpeg").getImage();  
             g.drawImage(image,0,0,this);
         }  
     }  
@@ -77,7 +82,7 @@ public class GUI implements ActionListener{
     //superclass methods
     public void paint(Graphics g)
     {
-        paint(g);
+        super.paint(g);
         g.setColor(Color.black);
         g.drawRect(400, 400, 100, 100);
         g.fillRect(400, 400, 100, 100);
@@ -93,10 +98,7 @@ public class GUI implements ActionListener{
         }
         else if (event.getSource() == instrButton)
         {
-            container.remove(instrButton);
-            instructions.setText("Instructions HERE");
-            instructions.setEnabled(false);
-            instructions.setVisible(true);
+            JOptionPane.showMessageDialog(screen, "Use the up, left, and right arrow keys to move and to jump over obstacles" );
         }
         else
         {
@@ -105,5 +107,4 @@ public class GUI implements ActionListener{
     }
 
     //Use classloader when reading in images (in GuiTest samples)
-
 }
