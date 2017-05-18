@@ -42,14 +42,6 @@ public class GUI implements ActionListener
        //gui.paint();
     }
 
-    private class MyDrawPanel extends JPanel
-    {  
-        public void paintComponent(Graphics g)
-        {              
-            Image image=new ImageIcon("forest.jpeg").getImage();  
-            g.drawImage(image,0,0,this);
-        }  
-    }  
 
     public void init(int levelNum)
     {
