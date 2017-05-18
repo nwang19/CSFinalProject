@@ -32,7 +32,7 @@ public class Level {
 		return platforms;
 	}
 	
-	public Point getEnd(=)
+	public Point getEnd()
 	{
 		return end;
 	}
