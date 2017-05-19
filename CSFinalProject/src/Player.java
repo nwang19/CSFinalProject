@@ -22,8 +22,8 @@ public class Player extends Rectangle
 	public Player()
 	{
 		//lives = 3;
-		state = 0;
-		yState = false;
+		xState = STILL;
+		yState = STILL;
 	}
 	
 	public Player(int x, int y, int width, int height)
@@ -34,8 +34,8 @@ public class Player extends Rectangle
 		//JarPictLoader test = new JarPictLoader();// when using JAR file
 		ImageIcon personIcon = test.getperson();
 		person = personIcon.getImage();
-		xState = 0;
-		yState = 0;
+		xState = STILL;
+		yState = STILL;
 	}
 
 	public void setXState(int status)
