@@ -2,7 +2,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Level {
-	static final Point start = new Point(10, 10);
+	static final Point start = new Point(0, 10);
 	private int width, height;
 	private int pWidth, pHeight;
 	private Point end;
@@ -21,7 +21,7 @@ public class Level {
 			platforms = new ArrayList<Platform>();
 			for (int x = (int)end.getX(); x > 0; x /= 10)
 			{
-				platforms.add(new Platform(x, 5));
+				platforms.add(new Platform(x, 5, Platform.width, Platform.height));
 			}
 			width = 500;
 			height = 100;
@@ -106,7 +106,7 @@ public class Level {
 	
 	// checks if location to move to, returns location to move to
 	// or null, if the location is outside of the grid bounds
-	public Point checkNextLoc(Point loc, int levelNum, int state, boolean up)
+	public Point checkNextLoc(Point loc, int levelNum, int xState, int yState)
 	{
 		if (isValid(loc))
 		{
@@ -117,16 +117,18 @@ public class Level {
 			else
 			{
 				Platform plat = getPlatform(loc);
-				point = plat.getLocation();
+				point = loc;
 				if (plat != null)
 				{
-					point = plat.getLocation();	
-					if (state == Player.LEFT)
+					point = plat.getLocation();
+					if (xState == Player.LEFT)
 						point = new Point((int)(point.getX() - pWidth), (int)point.getY());
-					else if (state == Player.RIGHT)
+					else if (xState == Player.RIGHT)
 						point = new Point((int)point.getX(), (int)point.getY());
-					if (up == true)
+					if (yState == Player.UP)
 						point = new Point((int)point.getX(), (int)(point.getY() - pHeight));
+					else if (yState == Player.DOWN)
+						point = new Point((int)point.getX(), (int)(point.getY() + pHeight));
 				}
 				return point;
 			}
@@ -136,7 +138,7 @@ public class Level {
 	
 	/*
 	 * Instruction Description (b/c i'm bored & avoiding my responsibilities):
-	 * You are a student at Westview. Use the arrow keys to moe left, right, and up to navigate
+	 * You are a student at Westview. Use the arrow keys to move left, right, and up to navigate
 	 * your way through beige brick and palm trees to reach the end of each level, or year. Make sure
 	 * to avoid sea gulls, books, other zombified students (rip), and most of all, toxic AP culture-- they
 	 * will all make you lose a life. Good luck, and don't forget to enjoy the ride!
