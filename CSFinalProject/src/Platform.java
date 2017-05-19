@@ -6,13 +6,10 @@ public class Platform extends Rectangle
 {
 
 	private Image blockImg;
+	static int width = 10;
+	static int height =10;
 	
-	public Platform()
-	{
-		super();
-	}
-	
-	public Platform(int x, int y, int width, int height)
+	public Platform(int x, int y, int w, int h)
 	{
 		super(x, y, width, height);
 	}
@@ -22,6 +19,7 @@ public class Platform extends Rectangle
 		return blockImg;
 	}
 	
+	//how do we add images?? can be do something like this, or do we have to load it into the gui?
 	public void setImg(String imgName)
 	{
 		ImageIcon blockIcon = new ImageIcon(imgName);
