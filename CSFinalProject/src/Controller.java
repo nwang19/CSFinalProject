@@ -5,31 +5,40 @@ import javax.swing.Timer;
 
 public class Controller implements KeyListener, ActionListener 
 {
-	private Grid area;
 	private GUI gui;
 	private Player player;
 	private Timer timer;
 	private Timer jumpTimer;
 	private int levelNum;
 	private Level level;
-	private int counter;
+	private int jumpMoveCounter;
 
 	public Controller() 
 	{
 		timer = new Timer(250, this);
 		jumpTimer = new Timer(250, this);
-		player = new Player();
+		int width = 10; int height = 10;
+		player = new Player((int)Level.start.getX(), (int)Level.start.getY(), width, height);
+		level.storePlayerSize(player);
 		levelNum++;
 		level = new Level(levelNum);
-		counter = 0;
+		jumpMoveCounter = 0;
 	}
 
-	// constructs Grid with correct set of obstacles and platforms, and update’s
-	// GUI’s display
+	// constructs Grid with correct set of obstacles and platforms, and updates
+	// GUI's display
 	public void initialize() 
 	{
 		gui = new GUI();
-		area = new Grid(level.getObstacles(), level.getPlatforms(), level.getEnd());
+		level = new Level(levelNum);
+		player.setLocation(Level.start);
+		gui.display();
+	}
+	
+	public void nextLevel()
+	{
+		levelNum++;
+		initialize();
 	}
 
 	//checks if either right or left arrow key is pressed
@@ -46,7 +55,7 @@ public class Controller implements KeyListener, ActionListener
 	//checks if user hit the up arrow key. If yes, starts timer and sets player's jumping state to true
 	public void keyTyped(KeyEvent event)
 	{
-		if (event.getKeyCode() == KeyEvent.VK_UP) 
+		if (player.getYState() == false && event.getKeyCode() == KeyEvent.VK_UP) 
 		{
 			jumpTimer.start();
 			jumpTimer.addActionListener(this);
@@ -68,63 +77,41 @@ public class Controller implements KeyListener, ActionListener
 		{
 			if(nextLoc.equals(Level.start))
 			{
-				if (player.getLives() > 1)
+				//if (player.getLives() > 1)
 					resetLevel();
-				else
+				/*else
 				{
 					//game over
-				}
+				}*/
 			}
 			else
-				player.setLocation(left);
+				player.setLocation(nextLoc);
 		 gui.updateScreen(player, obstacles, platforms);
+		 if (player.contains(level.getEnd()))
+				 nextLevel();
 		}
 	}
-
-	/*public void processRight() 
-	{
-		Point loc = player.getLocation();
-		Point left = new Point((int)loc.getX()+10, (int)loc.getY());
-		Point nextLoc = area.checkNextLoc(left, levelNum);
-		if(nextLoc != null)
-		{
-			if(nextLoc.equals(Level.start))
-			{
-				if (player.getLives() > 1)
-					resetLevel();
-				else
-				{
-					//game over
-				}
-			}
-			else
-			{
-				player.setLocation(left);
-			}
-		 gui.updateScreen(player, obstacles, platforms);
-		}
-	} */
 
 	//returns new location player will move to when jumping
 	public Point processJump(Point moveLoc)
 	{
 		if (player != null)
 		{
-			if (counter > 4)
+			if (jumpMoveCounter > 4)
 			{
 				jumpTimer.stop();
 				player.setYState(false);
-				counter = 0;
+				jumpMoveCounter = 0;
 				return moveLoc;
 			}
 			else
 			{
-				counter++;
-				if (counter == 1)
+				jumpMoveCounter++;
+				if (jumpMoveCounter == 1)
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
-				else if (counter == 2)
+				else if (jumpMoveCounter == 2)
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
-				else if (counter == 3)
+				else if (jumpMoveCounter == 3)
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
 				else
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
@@ -157,6 +144,6 @@ public class Controller implements KeyListener, ActionListener
 			if (player.getYState() == true)
 				moveLoc = processJump(moveLoc);
 		}
-		processMove(area.checkNextLoc(moveLoc, levelNum, player.getState(), player.getYState()));
+		processMove(level.checkNextLoc(moveLoc, levelNum, player.getState(), player.getYState()));
 	}
 }
