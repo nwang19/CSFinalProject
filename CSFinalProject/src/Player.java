@@ -10,12 +10,14 @@ public class Player extends Rectangle
 	//Job: stores lives, gets location to move to next, and updates its record of its position.
 
 	//private int lives; 
-	private int state;
-	private boolean yState;
+	private int xState;
+	private int yState;
 	private Image person;
 	public static final int STILL = 0;
 	public static final int LEFT = 1;
 	public static final int RIGHT = 2;
+	public static final int UP = 3;
+	public static final int DOWN = 4;
 	
 	public Player()
 	{
@@ -32,10 +34,30 @@ public class Player extends Rectangle
 		//JarPictLoader test = new JarPictLoader();// when using JAR file
 		ImageIcon personIcon = test.getperson();
 		person = personIcon.getImage();
-		state = 0;
-		yState = false;
+		xState = 0;
+		yState = 0;
 	}
 
+	public void setXState(int status)
+	{
+		xState = status;
+	}
+	
+	public int getXState()
+	{
+		return xState;
+	}
+	
+	public int getYState()
+	{
+		return yState;
+	}
+	
+	public void setYState(int y)
+	{
+		yState = y;
+	}
+	
 	/*public int getLives()
 	{
 		return lives;
@@ -45,25 +67,5 @@ public class Player extends Rectangle
 	{
 		lives = numLives;
 	}*/
-
-	public void setState(int status)
-	{
-		state = status;
-	}
-	
-	public int getState()
-	{
-		return state;
-	}
-	
-	public boolean getYState()
-	{
-		return yState;
-	}
-	
-	public void setYState(boolean y)
-	{
-		yState = y;
-	}
 
 }
