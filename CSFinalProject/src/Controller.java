@@ -19,7 +19,7 @@ public class Controller
 		levelNum++;
 		level = new Level(levelNum);
 		jumpMoveCounter = 0;
-		gui = new GUI();
+		gui = new GUI(this);
 	}
 
 	public Level getLevel()
@@ -102,4 +102,3 @@ public class Controller
 		return null;
 	}
 }
-	
