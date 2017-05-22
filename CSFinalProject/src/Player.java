@@ -1,9 +1,4 @@
-import java.awt.Image;
-import java.awt.Point;
 import java.awt.Rectangle;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;   
 
 public class Player extends Rectangle
 {
