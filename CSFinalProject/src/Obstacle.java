@@ -5,13 +5,13 @@ import java.awt.Rectangle;
 public class Obstacle extends Rectangle
 {
 	private Point myPoint;
-	private Image myImg;
+	static int width = 100;
+	static int height = 100;
 	
-	public Obstacle(int x, int y, int width, int height, Image img)
+	public Obstacle(int x, int y)
 	{
 		super(x, y, width, height);
 		myPoint = new Point(x, y-(height/2));
-		myImg = img;
 	}
 	
 	public Point getPoint()
@@ -23,16 +23,6 @@ public class Obstacle extends Rectangle
 	{
 		myPoint = p;
 		setLocation((int)p.getX(), (int)p.getY() + (height/2));
-	}
-	
-	public Image getImg()
-	{
-		return myImg;
-	}
-	
-	public void setImg(Image img)
-	{
-		myImg = img;
 	}
 	
 }
