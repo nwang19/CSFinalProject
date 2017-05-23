@@ -1,4 +1,4 @@
-import java.awt.*;
+iimport java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -12,15 +12,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     private JPanel panel; 
     private JLabel gameName;
     private Timer timer;
-    private Timer jumpTimer;
     
     public GUI(Controller cont)
     {
         timer = new Timer(250, this);
-        jumpTimer = new Timer(250, this);
         control = cont;
         //we'll have to add gif files or something to Eclipse make the images insertable into the program
-/*        gameName = new JLabel("Westview Life");
+        gameName = new JLabel("Westview Life");
         gameName.setFont(new Font("Serif", Font.PLAIN, 50));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         playButton = new JButton("Play");
@@ -33,9 +31,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         panel.add(playButton);
         panel.add(instrButton);
         container.add(panel, BorderLayout.SOUTH);
-        container.add(gameName, BorderLayout.NORTH); */
+        container.add(gameName, BorderLayout.NORTH); 
         addKeyListener(this); 
-        
+        timer.addActionListener(this);
     }
 
     public void init(int levelNum)
@@ -57,7 +55,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         repaint();
     }
 
-    //changes player’s position. Note: should repaint at the end
+ 
+   //changes player’s position. Note: should repaint at the end
      public void updateScreen(Player player)
      {
          repaint();
@@ -70,8 +69,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
               control.getPlayer().setXState(Player.RIGHT);
           else if (event.getKeyCode() == KeyEvent.VK_A)
               control.getPlayer().setXState(Player.LEFT);
-    	  timer.addActionListener(this);
-          timer.start();
+    	  timer.start();
       }
       
       //checks if user hit the up arrow key. If yes, starts timer and sets player's jumping state to true
@@ -79,8 +77,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
       {
     	  if (event.getKeyChar() == 'w' || event.getKeyChar() == 'W') 
           {
-    		  jumpTimer.addActionListener(this);
-              jumpTimer.start();
+              timer.start();
               control.getPlayer().setYState(Player.UP);
           }
       }
@@ -88,15 +85,18 @@ public class GUI extends JFrame implements ActionListener, KeyListener
       //Stops the player's movement and resets player's state to still
       public void keyReleased(KeyEvent event) 
       {
-          timer.stop();
-          control.getPlayer().setXState(Player.STILL);
+          //DONT FORGET TO HAVE A SEPARTE PLACE THAT STOPS THE JUMP MOTION
+    	  if(event.getKeyCode() ==  KeyEvent.VK_D || event.getKeyCode() ==  KeyEvent.VK_A)
+          {
+    		  timer.stop();
+    		  control.getPlayer().setXState(Player.STILL);
+          }
       }
  
     //public void repaint()
     
     public void paint(Graphics g)
     {
-        super.paint(g);
         Image offImage = createImage(1000, 1000);
         Graphics buffer = offImage.getGraphics();
         paintOffScreen(buffer);        
@@ -122,8 +122,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         for(Obstacle obs: lev.getObstacles())
         {
         	g.setColor(Color.red);
-            g.drawRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);
-            g.fillRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);    
+            g.drawRect((int)obs.getX(), (int)obs.getY(), Obstacle.width, Obstacle.height);
+            g.fillRect((int)obs.getX(), (int)obs.getY(), Obstacle.width, Obstacle.height);    
         }
         
         //g.drawRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
@@ -138,10 +138,11 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         {
             container.removeAll();
             init(1); //should display game at level specified in parameter
+           
         }
         else if (event.getSource() == instrButton)
         {
-            JOptionPane.showMessageDialog(this, "Use the up, left, and right arrow keys to move and to jump over obstacles" );
+        	JOptionPane.showMessageDialog(this, "Use the up, left, and right arrow keys to move and to jump over obstacles" );
         }
         else
         {
@@ -152,12 +153,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener
                     moveLoc = new Point((int)moveLoc.getX()-10, (int)moveLoc.getY());
                 else if (control.getPlayer().getXState() == Player.RIGHT)
                     moveLoc = new Point((int)moveLoc.getX()+10, (int)moveLoc.getY());
-            }
-            else if (event.getSource() == jumpTimer)
-            {
-            	System.out.println("Test jump timer");
-            	if (control.getPlayer().getYState() != 0)
-                    moveLoc = control.processJump(moveLoc, jumpTimer);
+            	else if (control.getPlayer().getYState() == Player.UP)
+                    moveLoc = control.processJump(moveLoc, timer);
             }
             control.processMove(control.getLevel().checkNextLoc(moveLoc, control.getLevNum(), control.getPlayer().getXState(), control.getPlayer().getYState()));
             updateScreen(control.getPlayer());
