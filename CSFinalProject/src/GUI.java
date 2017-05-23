@@ -18,7 +18,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     {
         timer = new Timer(250, this);
         jumpTimer = new Timer(250, this);
-        ClassLoader cldr = this.getClass().getClassLoader();
         control = cont;
         //we'll have to add gif files or something to Eclipse make the images insertable into the program
 /*        gameName = new JLabel("Westview Life");
@@ -107,8 +106,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
     public void paintOffScreen(Graphics g)
     {
-        ImageIcon blockIcon = new ImageIcon();
- 		Image image = blockIcon.getImage();
+    	ClassLoader cldr = this.getClass().getClassLoader();
+    	ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg.png"));
+ 		Image image = playerIcon.getImage();
     	g.clearRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
         Level lev = control.getLevel();
         Platform plat1 = lev.getPlatforms().get(0);
@@ -127,8 +127,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
             g.fillRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);    
         }
         
-        
-        g.setColor(Color.blue);;
         //g.drawRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
         //g.fillRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);  
         g.drawImage(image, (int)control.getPlayer().getX(), (int)control.getPlayer().getY(), null);
