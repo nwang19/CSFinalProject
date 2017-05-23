@@ -61,26 +61,25 @@ public class GUI extends JFrame implements ActionListener, KeyListener
      public void updateScreen(Player player)
      {
          repaint();
-   
      }
 
   //checks if either right or left arrow key is pressed
       public void keyPressed(KeyEvent event) 
       {
-          if (event.getKeyCode() == KeyEvent.VK_RIGHT) 
+    	  if (event.getKeyCode() == KeyEvent.VK_D) 
               control.getPlayer().setXState(Player.RIGHT);
-          else if (event.getKeyCode() == KeyEvent.VK_LEFT)
+          else if (event.getKeyCode() == KeyEvent.VK_A)
               control.getPlayer().setXState(Player.LEFT);
-          timer.addActionListener(this);
+    	  timer.addActionListener(this);
           timer.start();
       }
       
       //checks if user hit the up arrow key. If yes, starts timer and sets player's jumping state to true
       public void keyTyped(KeyEvent event)
       {
-          if (control.getPlayer().getYState() == Player.STILL && event.getKeyCode() == KeyEvent.VK_UP) 
+    	  if (event.getKeyChar() == 'w' || event.getKeyChar() == 'W') 
           {
-              jumpTimer.addActionListener(this);
+    		  jumpTimer.addActionListener(this);
               jumpTimer.start();
               control.getPlayer().setYState(Player.UP);
           }
@@ -111,18 +110,18 @@ public class GUI extends JFrame implements ActionListener, KeyListener
  		Image image = playerIcon.getImage();
     	g.clearRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
         Level lev = control.getLevel();
-        Platform plat1 = lev.getPlatforms().get(0);
-        System.out.println("platform info: "+ plat1.getX() + " " + plat1.getY() + " " + Platform.width + " " + Platform.height);
+        //Platform plat1 = lev.getPlatforms().get(0);
+        //System.out.println("platform info: "+ plat1.getX() + " " + plat1.getY() + " " + Platform.width + " " + Platform.height);
         for(Platform plat: lev.getPlatforms())
         {
-            g.setColor(Color.black);
+        	g.setColor(Color.black);
             g.drawRect((int)plat.getX(), (int)plat.getY(), Platform.width, Platform.height);
             g.fillRect((int)plat.getX(), (int)plat.getY(), Platform.width, Platform.height);    
         }
         
         for(Obstacle obs: lev.getObstacles())
         {
-            g.setColor(Color.black);
+        	g.setColor(Color.red);
             g.drawRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);
             g.fillRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);    
         }
@@ -135,7 +134,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     
     public void actionPerformed(ActionEvent event)
     {
-        if (event.getSource() == playButton)
+    	if (event.getSource() == playButton)
         {
             container.removeAll();
             init(1); //should display game at level specified in parameter
@@ -146,17 +145,18 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         }
         else
         {
-            Point moveLoc = control.getPlayer().getLocation();
+        	Point moveLoc = control.getPlayer().getLocation();
             if (event.getSource() == timer)
             {
-                if (control.getPlayer().getXState() == Player.LEFT)
+            	if (control.getPlayer().getXState() == Player.LEFT)
                     moveLoc = new Point((int)moveLoc.getX()-10, (int)moveLoc.getY());
                 else if (control.getPlayer().getXState() == Player.RIGHT)
                     moveLoc = new Point((int)moveLoc.getX()+10, (int)moveLoc.getY());
             }
             else if (event.getSource() == jumpTimer)
             {
-                if (control.getPlayer().getYState() != 0)
+            	System.out.println("Test jump timer");
+            	if (control.getPlayer().getYState() != 0)
                     moveLoc = control.processJump(moveLoc, jumpTimer);
             }
             control.processMove(control.getLevel().checkNextLoc(moveLoc, control.getLevNum(), control.getPlayer().getXState(), control.getPlayer().getYState()));
