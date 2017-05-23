@@ -1,6 +1,6 @@
 import java.awt.Point;
 import java.awt.event.*;
-import java.util.ArrayList;
+
 import javax.swing.Timer;
 
 public class Controller 
@@ -10,37 +10,55 @@ public class Controller
 	private int levelNum;
 	private Level level;
 	private int jumpMoveCounter;
-
+	static int pWidth = 150, pHeight = 250;
+	
+	public static void main(String[] args)
+    {
+        Controller c = new Controller();
+        GUI gui = new GUI(c);
+        c.setGui(gui);
+        c.initialize();
+    }
+	
 	public Controller() 
 	{
-		int width = 10; int height = 10;
-		player = new Player((int)Level.start.getX(), (int)Level.start.getY(), width, height);
-		level.storePlayerSize(player);
-		levelNum++;
+		player = new Player((int)Level.start.getX(), (int)Level.start.getY(), pWidth, pHeight);
+		levelNum = 1; //++
 		level = new Level(levelNum);
 		jumpMoveCounter = 0;
-		gui = new GUI(this);
+	}
+	
+	public void setGui(GUI g)
+	{
+		gui = g;
 	}
 
+	
 	public Level getLevel()
 	{
 		return level;
 	}
+	
+	
 	public Player getPlayer()
 	{
 		return player;
 	}
+	
+	
 	public int getLevNum()
 	{
 		return levelNum;
 	}
+	
+	
 	// constructs Grid with correct set of obstacles and platforms, and updates
 	// GUI's display
 	public void initialize() 
 	{
 		level = new Level(levelNum);
 		player.setLocation(Level.start);
-		//gui.display();
+		gui.display();
 	}
 	
 	public void nextLevel()
