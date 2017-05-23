@@ -1,5 +1,5 @@
 import java.awt.Point;
-import java.awt.event.*;
+//import java.awt.event.*;
 
 import javax.swing.Timer;
 
@@ -10,7 +10,7 @@ public class Controller
 	private int levelNum;
 	private Level level;
 	private int jumpMoveCounter;
-	static int pWidth = 150, pHeight = 250;
+	static int pWidth = 100, pHeight = 200;
 	
 	public static void main(String[] args)
     {
@@ -56,8 +56,11 @@ public class Controller
 	// GUI's display
 	public void initialize() 
 	{
+		//timer.stop()
 		level = new Level(levelNum);
 		player.setLocation(Level.start);
+		player.setXState(Player.STILL);
+		player.setYState(Player.STILL);
 		gui.display();
 	}
 	
@@ -70,23 +73,29 @@ public class Controller
 	//Moves player to next location or beginning of game (if player hit an obstacle). Calls GUI to update display of position
 	public void processMove(Point nextLoc) 
 	{
+		
 		if(nextLoc != null)
 		{
 			if(nextLoc.equals(Level.start))
 			{
 				//if (player.getLives() > 1)
-					initialize();
+				System.out.println(nextLoc);
+				initialize();
 				/*else
 				{
 					//game over
 				}*/
 			}
 			else
+			{
 				player.setLocation(nextLoc);
-		 //gui.updateScreen(player);
-		 if (player.contains(level.getEnd()))
+			}
+			gui.updateScreen(player);
+			if (player.contains(level.getEnd()))
 				 nextLevel();
 		}
+		System.out.println("??"
+				+ "");
 	}
 
 	//returns new location player will move to when jumping
@@ -94,27 +103,31 @@ public class Controller
 	{
 		if (player != null)
 		{
-			if (jumpMoveCounter > 4)
+			jumpMoveCounter++;
+			if (jumpMoveCounter == 1)
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
+			else if (jumpMoveCounter == 2)
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
+			else if (jumpMoveCounter == 3)
 			{
-				jTimer.stop();
-				player.setYState(Player.STILL);
-				jumpMoveCounter = 0;
-				return moveLoc;
+				player.setYState(Player.DOWN);
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
 			}
 			else
 			{
-				jumpMoveCounter++;
-				if (jumpMoveCounter == 1)
-					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
-				else if (jumpMoveCounter == 2)
-					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
-				else if (jumpMoveCounter == 3)
-				{
-					player.setYState(Player.DOWN);
-					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
+				Point platLoc = new Point((int)player.getX() + pWidth + 1, (int)player.getY() + pHeight + 1);
+				if (level.getPlatform(platLoc) != null)
+				{	
+					jTimer.stop();
+					jumpMoveCounter = 0;
+					player.setYState(Player.STILL);
+					return moveLoc;
 				}
 				else
+				{
+					System.out.println(new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20)));
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
+				}
 			}
 		}
 		return null;
