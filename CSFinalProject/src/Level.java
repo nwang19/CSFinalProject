@@ -2,7 +2,7 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Level {
-	static final Point start = new Point(100, 400);
+	static final Point start = new Point(50, 500);
 	private int width, height;
 	private Point end;
 	private ArrayList<Obstacle> obstacles;
@@ -14,23 +14,18 @@ public class Level {
 		if (level == 1)
 		{
 			levelNum = level;
-			end = new Point(700,400);
+			end = new Point(1000, 700);
 			obstacles = new ArrayList<Obstacle>();
 			//fill ArrayList with obstacles at locations
-			for (int x = (int)end.getX(); x > 0; x /= 10)
-			{
-				obstacles.add(new Obstacle(x, 300));
-			}
+			obstacles.add(new Obstacle(500, 500));
 			platforms = new ArrayList<Platform>();
-			for (int x = (int)end.getX(); x > 0; x /= 10)
+			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 			{
-				platforms.add(new Platform(x, 5, Platform.width, Platform.height));
+				platforms.add(new Platform(x, 700, 10, 10));
 			}
-			width = 500;
-			height = 100;
+			width = 1000;
+			height = 1000;
 		}
-		System.out.println("generated a level");
-		System.out.println("number of obstacles and platforms: "+obstacles.size() + " " + platforms.size());
 		//else if (level == 2) and so on... (use switch cases??)
 	}
 	
@@ -86,7 +81,7 @@ public class Level {
 	}
 	
 	
-	//returns the obstacle that contains the specified point, or null if no such platform
+	//returns the platform that contains the specified point, or null if no such platform
 	public Platform getPlatform(Point loc)
 	{
 		if (levelNum != 0 && isValid(loc))
@@ -127,8 +122,8 @@ public class Level {
 					else if (yState == Player.DOWN)
 						point = new Point((int)point.getX(), (int)(point.getY() + Controller.pHeight));
 				}
-				return point;
 			}
+			return point;
 		}
 		return null;
 	}
@@ -137,8 +132,8 @@ public class Level {
 	 * Instruction Description (b/c i'm bored & avoiding my responsibilities):
 	 * You are a student at Westview. Use the arrow keys to move left, right, and up to navigate
 	 * your way through beige brick and palm trees to reach the end of each level, or year. Make sure
-	 * to avoid sea gulls, books, other zombified students (rip), and most of all, toxic AP culture-- they
-	 * will all make you lose a life. Good luck, and don't forget to enjoy the ride!
+	 * to avoid sea gulls, books, and, most of all, toxic AP culture-- they
+	 * will all make you redo the level. Good luck, and don't forget to enjoy the ride!
 	 * 
 	 * */
 		
