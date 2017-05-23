@@ -2,9 +2,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 
 public class Level {
-	static final Point start = new Point(0, 10);
+	static final Point start = new Point(100, 400);
 	private int width, height;
-	private int pWidth, pHeight;
 	private Point end;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Platform> platforms;
@@ -15,9 +14,13 @@ public class Level {
 		if (level == 1)
 		{
 			levelNum = level;
-			end = new Point(500,10);
+			end = new Point(700,400);
 			obstacles = new ArrayList<Obstacle>();
 			//fill ArrayList with obstacles at locations
+			for (int x = (int)end.getX(); x > 0; x /= 10)
+			{
+				obstacles.add(new Obstacle(x, 300));
+			}
 			platforms = new ArrayList<Platform>();
 			for (int x = (int)end.getX(); x > 0; x /= 10)
 			{
@@ -26,6 +29,8 @@ public class Level {
 			width = 500;
 			height = 100;
 		}
+		System.out.println("generated a level");
+		System.out.println("number of obstacles and platforms: "+obstacles.size() + " " + platforms.size());
 		//else if (level == 2) and so on... (use switch cases??)
 	}
 	
@@ -96,14 +101,6 @@ public class Level {
 	}
 	
 	
-	//Stores the width and height of the player
-	public void storePlayerSize(Player player)
-	{
-		pHeight = (int) player.getHeight();
-		pWidth = (int) player.getWidth();
-	}
-	
-	
 	// checks if location to move to, returns location to move to
 	// or null, if the location is outside of the grid bounds
 	public Point checkNextLoc(Point loc, int levelNum, int xState, int yState)
@@ -122,13 +119,13 @@ public class Level {
 				{
 					point = plat.getLocation();
 					if (xState == Player.LEFT)
-						point = new Point((int)(point.getX() - pWidth), (int)point.getY());
+						point = new Point((int)(point.getX() - Controller.pWidth), (int)point.getY());
 					else if (xState == Player.RIGHT)
 						point = new Point((int)point.getX(), (int)point.getY());
 					if (yState == Player.UP)
-						point = new Point((int)point.getX(), (int)(point.getY() - pHeight));
+						point = new Point((int)point.getX(), (int)(point.getY() - Controller.pHeight));
 					else if (yState == Player.DOWN)
-						point = new Point((int)point.getX(), (int)(point.getY() + pHeight));
+						point = new Point((int)point.getX(), (int)(point.getY() + Controller.pHeight));
 				}
 				return point;
 			}
