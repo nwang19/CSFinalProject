@@ -1,5 +1,6 @@
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class GUI extends JFrame implements ActionListener, KeyListener
@@ -12,20 +13,19 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     private JLabel gameName;
     private Timer timer;
     private Timer jumpTimer;
-    private int number;
+    
     public GUI(Controller cont)
     {
-        number = 0;
         timer = new Timer(250, this);
         jumpTimer = new Timer(250, this);
         ClassLoader cldr = this.getClass().getClassLoader();
         control = cont;
         //we'll have to add gif files or something to Eclipse make the images insertable into the program
-       /* gameName = new JLabel("Westview Life");
+/*        gameName = new JLabel("Westview Life");
         gameName.setFont(new Font("Serif", Font.PLAIN, 50));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         playButton = new JButton("Play");
-        instrButton = new JButton("Instructions");
+        instrButton = new JButton("Instructions"); 
         playButton.addActionListener(this);
         instrButton.addActionListener(this);
         panel = new JPanel();
@@ -36,15 +36,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         container.add(panel, BorderLayout.SOUTH);
         container.add(gameName, BorderLayout.NORTH); */
         addKeyListener(this); 
-        this.setSize(500, 500);
-        this.setVisible(true);
         
-    }
-    public static void main(String[] args)
-    {
-        Controller c = new Controller();
-        GUI gui = new GUI(c);
-        gui.display();
     }
 
     public void init(int levelNum)
@@ -61,8 +53,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     //displays game
    public void display()
     {
-        this.setSize(500, 500);
+        this.setSize(1000, 1000);
         this.setVisible(true);
+        repaint();
     }
 
     //changes player’s position. Note: should repaint at the end
@@ -106,7 +99,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     public void paint(Graphics g)
     {
         super.paint(g);
-        Image offImage = createImage(20, 20);
+        Image offImage = createImage(1000, 1000);
         Graphics buffer = offImage.getGraphics();
         paintOffScreen(buffer);        
         g.drawImage(offImage, 0, 0, null);    
@@ -114,31 +107,32 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
     public void paintOffScreen(Graphics g)
     {
-        
-        if(number == 0)
-        {
+        ImageIcon blockIcon = new ImageIcon();
+ 		Image image = blockIcon.getImage();
+    	g.clearRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
         Level lev = control.getLevel();
+        Platform plat1 = lev.getPlatforms().get(0);
+        System.out.println("platform info: "+ plat1.getX() + " " + plat1.getY() + " " + Platform.width + " " + Platform.height);
         for(Platform plat: lev.getPlatforms())
         {
             g.setColor(Color.black);
-            g.drawRect(plat.x, plat.y, Platform.width, Platform.height);
-            g.fillRect(plat.x, plat.y, Platform.width, Platform.height);    
+            g.drawRect((int)plat.getX(), (int)plat.getY(), Platform.width, Platform.height);
+            g.fillRect((int)plat.getX(), (int)plat.getY(), Platform.width, Platform.height);    
         }
         
         for(Obstacle obs: lev.getObstacles())
         {
             g.setColor(Color.black);
-            g.drawRect(obs.x, obs.y, obs.width, obs.height);
-            g.fillRect(obs.x, obs.y, obs.width, obs.height);    
+            g.drawRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);
+            g.fillRect((int)obs.getX(), (int)obs.getY(), obs.width, obs.height);    
         }
         
-        // sometimes helpful to do this first to clear things:
-         g.clearRect(0, 0, 20, 20);
-        }
         
-        g.setColor(Color.blue);
-        g.drawRect(control.getPlayer().x, control.getPlayer().y, control.getPlayer().width, control.getPlayer().height);
-        g.fillRect(control.getPlayer().x, control.getPlayer().y, control.getPlayer().width, control.getPlayer().height);    
+        g.setColor(Color.blue);;
+        //g.drawRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
+        //g.fillRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);  
+        g.drawImage(image, (int)control.getPlayer().getX(), (int)control.getPlayer().getY(), null);
+		System.out.println("painted a level");
     }
     
     public void actionPerformed(ActionEvent event)
@@ -169,7 +163,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
             }
             control.processMove(control.getLevel().checkNextLoc(moveLoc, control.getLevNum(), control.getPlayer().getXState(), control.getPlayer().getYState()));
             updateScreen(control.getPlayer());
-        } 
+        }
     }
 
     //Use classloader when reading in images (in GuiTest samples)
