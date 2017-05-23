@@ -94,40 +94,38 @@ public class Controller
 			if (player.contains(level.getEnd()))
 				 nextLevel();
 		}
-		System.out.println("??"
-				+ "");
 	}
 
 	//returns new location player will move to when jumping
 	public Point processJump(Point moveLoc, Timer jTimer)
 	{
-		if (player != null)
+		if (player != null && player.getYState() != Player.STILL && jumpMoveCounter <= 4)
 		{
 			jumpMoveCounter++;
 			if (jumpMoveCounter == 1)
-				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
 			else if (jumpMoveCounter == 2)
-				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
 			else if (jumpMoveCounter == 3)
 			{
 				player.setYState(Player.DOWN);
-				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
 			}
 			else
 			{
-				Point platLoc = new Point((int)player.getX() + pWidth + 1, (int)player.getY() + pHeight + 1);
+				/*Point platLoc = new Point((int)player.getX() + pWidth + 1, (int)player.getY() + pHeight + 1);
 				if (level.getPlatform(platLoc) != null)
-				{	
-					jTimer.stop();
+				{*/	
 					jumpMoveCounter = 0;
 					player.setYState(Player.STILL);
-					return moveLoc;
-				}
+					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
+					//return moveLoc;
+				/*}
 				else
 				{
 					System.out.println(new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20)));
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
-				}
+				}*/
 			}
 		}
 		return null;
