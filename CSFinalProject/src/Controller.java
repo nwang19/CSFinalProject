@@ -67,7 +67,12 @@ public class Controller
 	public void nextLevel()
 	{
 		levelNum++;
-		initialize();
+		if (levelNum <= 2)
+			initialize();
+		else
+		{
+			//display end screen
+		}
 	}
 
 	//Moves player to next location or beginning of game (if player hit an obstacle). Calls GUI to update display of position
