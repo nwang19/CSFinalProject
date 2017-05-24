@@ -12,14 +12,14 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     private JPanel panel; 
     private JLabel gameName;
     private Timer timer;
-    private boolean startScreen;
+    //private boolean startScreen;
     
     public GUI(Controller cont)
     {
         control = cont;
-        startScreen = true;
+        //startScreen = true;
         //we'll have to add gif files or something to Eclipse make the images insertable into the program
-        gameName = new JLabel("Stressedview");
+        /*gameName = new JLabel("Stressedview");
         gameName.setFont(new Font("Serif", Font.PLAIN, 50));
         gameName.setHorizontalAlignment(SwingConstants.CENTER);
         gameName.setForeground(Color.white);
@@ -36,7 +36,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         panel.add(playButton);
         panel.add(instrButton);
         container.add(panel, BorderLayout.CENTER);
-        container.add(gameName, BorderLayout.NORTH);
+        container.add(gameName, BorderLayout.NORTH);*/
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	addKeyListener(this); 
     	timer = new Timer(250, this);
@@ -106,7 +106,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
     public void paintOffScreen(Graphics g)
     {
-    	if (startScreen == false)
+    	//if (startScreen == false)
         {
     		ClassLoader cldr = this.getClass().getClassLoader();
     		ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg.png"));
@@ -138,7 +138,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     	if (event.getSource() == playButton)
         {
     		container.removeAll();
-            startScreen = false;
+            //startScreen = false;
             revalidate();
     		init(1); //should display game at level specified in parameter
            
