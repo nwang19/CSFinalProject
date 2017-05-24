@@ -12,22 +12,28 @@ public class Level {
 	
 	public Level(int level)
 	{
+		//use switch cases?
+		levelNum = level;
+		width = 1000;
+		height = 1000;
 		if (level == 1)
 		{
-			levelNum = level;
 			end = new Point(1000, 700);
 			obstacles = new ArrayList<Obstacle>();
-			//fill ArrayList with obstacles at locations
+			obstacles.add(new Obstacle(500, 600));
+			platforms = new ArrayList<Platform>();
+			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+				platforms.add(new Platform(x, 700, 10, 10));
+		}
+		else if (level == 2)
+		{
+			end = new Point(1000, 700);
+			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new Obstacle(500, 500));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-			{
 				platforms.add(new Platform(x, 700, 10, 10));
-			}
-			width = 1000;
-			height = 1000;
 		}
-		//else if (level == 2) and so on... (use switch cases??)
 	}
 	
 	
@@ -105,15 +111,10 @@ public class Level {
 		if (isValid(loc))
 		{
 			Point point;
-			Obstacle obst = getObstacle(new Point((int)(loc.getX() + Controller.pWidth), (int)loc.getY()));
+			Obstacle obst = getObstacle(new Point((int)(loc.getX() + Controller.pWidth/2), (int)loc.getY()));
 			Rectangle next = new Rectangle((int)loc.getX(), (int)loc.getY(), Controller.pWidth, Controller.pHeight);
 			if (obst != null && obst.intersects(next))
-			{
-				System.out.println(next.getBounds());
-				System.out.println(loc);
-				System.out.println(obst.getBounds());
 				point = Level.start;
-			}
 			else
 			{
 				Platform plat = getPlatform(loc);
