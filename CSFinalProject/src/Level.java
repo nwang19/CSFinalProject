@@ -1,4 +1,5 @@
 import java.awt.Point;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Level {
@@ -71,6 +72,7 @@ public class Level {
 	{
 		if (levelNum != 0 && isValid(loc))
 		{
+			//not sure if loop works
 			for (Obstacle obst : obstacles)
 			{
 				if (obst.contains(loc))
@@ -103,9 +105,15 @@ public class Level {
 		if (isValid(loc))
 		{
 			Point point;
-			Obstacle obst = getObstacle(loc);
-			if (obst != null)
+			Obstacle obst = getObstacle(new Point((int)(loc.getX() + Controller.pWidth), (int)loc.getY()));
+			Rectangle next = new Rectangle((int)loc.getX(), (int)loc.getY(), Controller.pWidth, Controller.pHeight);
+			if (obst != null && obst.intersects(next))
+			{
+				System.out.println(next.getBounds());
+				System.out.println(loc);
+				System.out.println(obst.getBounds());
 				point = Level.start;
+			}
 			else
 			{
 				Platform plat = getPlatform(loc);
