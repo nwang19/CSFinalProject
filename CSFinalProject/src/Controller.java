@@ -103,22 +103,25 @@ public class Controller
 		{
 			jumpMoveCounter++;
 			if (jumpMoveCounter == 1)
+			{
 				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
+			}
 			else if (jumpMoveCounter == 2)
 				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
 			else if (jumpMoveCounter == 3)
 			{
-				player.setYState(Player.DOWN);
+				//player.setYState(Player.DOWN);
 				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
 			}
-			else
+			else if (jumpMoveCounter == 4)
 			{
 				/*Point platLoc = new Point((int)player.getX() + pWidth + 1, (int)player.getY() + pHeight + 1);
 				if (level.getPlatform(platLoc) != null)
-				{*/	
-					jumpMoveCounter = 0;
+				{*/
 					player.setYState(Player.STILL);
+					jumpMoveCounter = 0;	
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
+					
 					//return moveLoc;
 				/*}
 				else
@@ -127,6 +130,7 @@ public class Controller
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
 				}*/
 			}
+			
 		}
 		return null;
 	}
