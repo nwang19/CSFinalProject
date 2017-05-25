@@ -8,6 +8,7 @@ public class Level {
 	private Point end;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Platform> platforms;
+	private int baseline;
 	private int levelNum;
 	
 	public Level(int level)
@@ -16,15 +17,16 @@ public class Level {
 		levelNum = level;
 		width = 1000;
 		height = 750;
+		baseline = 700;
 		if (level == 1)
 		{
 			end = new Point(1000, 590);
 			obstacles = new ArrayList<Obstacle>();
 			for (int x = 400; x < (int)end.getX() - 100; x += 200)
-				//obstacles.add(new Obstacle(x, 650));
+				obstacles.add(new Obstacle(x, baseline - Obstacle.height));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, 700, 10, 10));
+				platforms.add(new Platform(x, baseline, Obstacle.width, Obstacle.height));
 		}
 		else if (level == 2)
 		{
@@ -35,7 +37,7 @@ public class Level {
 				obstacles.add(new Obstacle(x, 300));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, 700, 10, 10));
+				platforms.add(new Platform(x, baseline, 10, 10));
 		}
 	}
 	
@@ -114,23 +116,21 @@ public class Level {
 		if (isValid(loc))
 		{
 			Point point = loc;
-			Rectangle next = new Rectangle((int)loc.getX(), (int)loc.getY(), Controller.pWidth, Controller.pHeight);
+			Rectangle next = new Rectangle((int)loc.getX()-20, (int)loc.getY()+5, Controller.pWidth-20, Controller.pHeight-10);
 			for (Obstacle obst : obstacles)
 			{
 				if (obst != null && obst.intersects(next))
-				{
 					return Level.start;
-				}
 			}
 			for (Platform plat : platforms)
 			{
-			if (plat != null)
-			{
-				point = loc;
-				point = new Point((int)point.getX(), (int)(point.getY()));
-				return point;
+				if (plat != null)
+				{
+					point = loc;
+					point = new Point((int)point.getX(), (int)(point.getY()));
+					return point;
 				
-			}
+				}
 			}
 			
 		}
