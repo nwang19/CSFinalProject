@@ -21,7 +21,7 @@ public class Level {
 			end = new Point(1000, 700);
 			obstacles = new ArrayList<Obstacle>();
 			for (int x = 400; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 500));
+				obstacles.add(new Obstacle(x, 650));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, 700, 10, 10));
@@ -113,29 +113,29 @@ public class Level {
 	{
 		if (isValid(loc))
 		{
-			Point point;
-			Obstacle obst = getObstacle(new Point((int)(loc.getX() + Controller.pWidth/2), (int)loc.getY()));
+			Point point = loc;
 			Rectangle next = new Rectangle((int)loc.getX(), (int)loc.getY(), Controller.pWidth, Controller.pHeight);
-			if (obst != null && obst.intersects(next))
-				point = Level.start;
-			else
+			for (Obstacle obst : obstacles)
 			{
-				Platform plat = getPlatform(loc);
-				point = loc;
-				if (plat != null)
-				{
-					point = plat.getLocation();
-					if (xState == Player.LEFT)
-						point = new Point((int)(point.getX() - Controller.pWidth), (int)point.getY());
-					else if (xState == Player.RIGHT)
-						point = new Point((int)point.getX(), (int)point.getY());
-					if (yState == Player.UP)
-						point = new Point((int)point.getX(), (int)(point.getY() - Controller.pHeight));
-					else if (yState == Player.DOWN)
-						point = new Point((int)point.getX(), (int)(point.getY() + Controller.pHeight));
-				}
+				if (obst != null && obst.intersects(next))
+					return Level.start;
 			}
-			return point;
+			for (Platform plat : platforms)
+			{
+			if (plat != null)
+			{
+				point = loc;
+				if (xState == Player.LEFT)
+					point = new Point((int)(point.getX() - Controller.pWidth), (int)point.getY());
+				else if (xState == Player.RIGHT)
+					point = new Point((int)point.getX(), (int)point.getY());
+				if (yState == Player.UP)
+					point = new Point((int)point.getX(), (int)(point.getY()));
+				else if (yState == Player.DOWN)
+					point = new Point((int)point.getX(), (int)(point.getY()));
+				return point;
+			}
+			}
 		}
 		return null;
 	}
