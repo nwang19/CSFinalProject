@@ -105,9 +105,9 @@ public class Controller
 	}
 
 	//returns new location player will move to when jumping
-	public Point processJump(Point moveLoc, Timer jTimer)
+	public Point processJump(Point moveLoc)
 	{
-		if (player != null && player.getYState() != Player.STILL && jumpMoveCounter <= 8)
+		if (player != null && player.getYState() != Player.STILL && jumpMoveCounter <= 6)
 		{
 			jumpMoveCounter++;
 			if (jumpMoveCounter == 1)
