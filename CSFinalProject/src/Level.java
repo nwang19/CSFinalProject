@@ -20,7 +20,8 @@ public class Level {
 		{
 			end = new Point(1000, 700);
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Obstacle(500, 600));
+			for (int x = 400; x < (int)end.getX() - 100; x += 200)
+				obstacles.add(new Obstacle(x, 500));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, 700, 10, 10));
@@ -29,7 +30,9 @@ public class Level {
 		{
 			end = new Point(1000, 700);
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Obstacle(500, 500));
+			//obstacles.add(new Obstacle(500, 500));
+			for (int x = 400; x < (int)end.getX() - 100; x += 200)
+				obstacles.add(new Obstacle(x, 300));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, 700, 10, 10));
