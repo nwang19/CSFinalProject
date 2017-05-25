@@ -93,8 +93,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     	  control.getPlayer().setXState(Player.STILL);
          }
      }
- 
-    //public void repaint()
+
     
     public void paint(Graphics g)
     {
@@ -160,7 +159,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
             	else if (control.getPlayer().getXState() == Player.RIGHT)
                     moveLoc = new Point((int)moveLoc.getX()+10, (int)moveLoc.getY());
             	if (control.getPlayer().getYState() != Player.STILL)
-                    moveLoc = control.processJump(moveLoc, timer);
+                    moveLoc = control.processJump(moveLoc);
             	
             	control.processMove(control.getLevel().checkNextLoc(moveLoc, control.getLevNum(), control.getPlayer().getXState(), control.getPlayer().getYState()));
             	updateScreen(control.getPlayer());
