@@ -39,7 +39,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         container.add(gameName, BorderLayout.NORTH);*/
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	addKeyListener(this); 
-    	timer = new Timer(250, this);
+    	timer = new Timer(100, this);
         timer.addActionListener(this);
     }
 
@@ -54,7 +54,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     {
         this.setSize(1000, 1000);
         this.setVisible(true);
-        //repaint();
+        repaint();
     }
 
  
@@ -128,6 +128,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
  				g.drawRect((int)obs.getX(), (int)obs.getY(), Obstacle.width, Obstacle.height);
  				g.fillRect((int)obs.getX(), (int)obs.getY(), Obstacle.width, Obstacle.height);    
  			}
+ 			
         
  			g.drawImage(image, (int)control.getPlayer().getX(), (int)control.getPlayer().getY(), null);
         }
