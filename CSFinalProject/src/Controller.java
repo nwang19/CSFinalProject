@@ -62,6 +62,7 @@ public class Controller
 		player.setXState(Player.STILL);
 		player.setYState(Player.STILL);
 		gui.display();
+		jumpMoveCounter = 0;
 	}
 	
 	public void nextLevel()
@@ -84,7 +85,6 @@ public class Controller
 			if(nextLoc.equals(Level.start))
 			{
 				//if (player.getLives() > 1)
-				System.out.println(nextLoc);
 				initialize();
 				/*else
 				{
@@ -97,35 +97,34 @@ public class Controller
 			}
 			gui.updateScreen(player);
 			if (player.contains(level.getEnd()))
+			{
 				 nextLevel();
+				 System.out.println("next level");
+			}
 		}
 	}
 
 	//returns new location player will move to when jumping
 	public Point processJump(Point moveLoc, Timer jTimer)
 	{
-		if (player != null && player.getYState() != Player.STILL && jumpMoveCounter <= 4)
+		if (player != null && player.getYState() != Player.STILL && jumpMoveCounter <= 8)
 		{
 			jumpMoveCounter++;
 			if (jumpMoveCounter == 1)
-			{
-				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
-			}
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 25));
 			else if (jumpMoveCounter == 2)
 				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 10));
 			else if (jumpMoveCounter == 3)
 			{
 				//player.setYState(Player.DOWN);
-				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 5));
 			}
 			else if (jumpMoveCounter == 4)
 			{
 				/*Point platLoc = new Point((int)player.getX() + pWidth + 1, (int)player.getY() + pHeight + 1);
 				if (level.getPlatform(platLoc) != null)
 				{*/
-					player.setYState(Player.STILL);
-					jumpMoveCounter = 0;	
-					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 20));
+					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 5));
 					
 					//return moveLoc;
 				/*}
@@ -135,7 +134,14 @@ public class Controller
 					return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 20));
 				}*/
 			}
-			
+			else if (jumpMoveCounter == 5)
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 10));
+			else if (jumpMoveCounter == 6)
+			{
+				player.setYState(Player.STILL);
+				jumpMoveCounter = 0;
+				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() + 25));
+			}
 		}
 		return null;
 	}
