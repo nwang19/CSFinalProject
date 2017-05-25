@@ -5,8 +5,8 @@ import java.awt.Rectangle;
 public class Obstacle extends Rectangle
 {
 	private Point myPoint;
-	static int width = 100;
-	static int height = 100;
+	static int width = 50;
+	static int height = 50;
 	
 	public Obstacle(int x, int y)
 	{
