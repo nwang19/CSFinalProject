@@ -15,13 +15,13 @@ public class Level {
 		//use switch cases?
 		levelNum = level;
 		width = 1000;
-		height = 1000;
+		height = 750;
 		if (level == 1)
 		{
-			end = new Point(1000, 700);
+			end = new Point(1000, 590);
 			obstacles = new ArrayList<Obstacle>();
 			for (int x = 400; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 650));
+				//obstacles.add(new Obstacle(x, 650));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, 700, 10, 10));
@@ -118,24 +118,21 @@ public class Level {
 			for (Obstacle obst : obstacles)
 			{
 				if (obst != null && obst.intersects(next))
+				{
 					return Level.start;
+				}
 			}
 			for (Platform plat : platforms)
 			{
 			if (plat != null)
 			{
 				point = loc;
-				if (xState == Player.LEFT)
-					point = new Point((int)(point.getX() - Controller.pWidth), (int)point.getY());
-				else if (xState == Player.RIGHT)
-					point = new Point((int)point.getX(), (int)point.getY());
-				if (yState == Player.UP)
-					point = new Point((int)point.getX(), (int)(point.getY()));
-				else if (yState == Player.DOWN)
-					point = new Point((int)point.getX(), (int)(point.getY()));
+				point = new Point((int)point.getX(), (int)(point.getY()));
 				return point;
+				
 			}
 			}
+			
 		}
 		return null;
 	}
