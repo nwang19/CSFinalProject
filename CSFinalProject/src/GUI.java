@@ -13,7 +13,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     private JLabel gameName;
     private Timer timer;
     private Image playerImage;
-    //private boolean startScreen;
+    private boolean startScreen;
+    private JComponent component;
     
     public GUI(Controller cont)
     {
@@ -21,9 +22,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     	ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg2.png"));
     	playerImage = playerIcon.getImage();
         control = cont;
-        //startScreen = true;
+        startScreen = true;
         //we'll have to add gif files or something to Eclipse make the images insertable into the program
-        /*gameName = new JLabel("Stressedview");
+        gameName = new JLabel("Stressedview");
         gameName.setFont(new Font("Serif", Font.PLAIN, 50));
         gameName.setHorizontalAlignment(SwingConstants.CENTER);
         gameName.setForeground(Color.white);
@@ -40,11 +41,10 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         panel.add(playButton);
         panel.add(instrButton);
         container.add(panel, BorderLayout.CENTER);
-        container.add(gameName, BorderLayout.NORTH);*/
+        container.add(gameName, BorderLayout.NORTH);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	addKeyListener(this); 
-    	timer = new Timer(10, this);
-        timer.addActionListener(this);
+    	
+    	
     }
 
     //initializes each level with components from the desired level (indicated by levelNum in parameter)
@@ -109,7 +109,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
     public void paintOffScreen(Graphics g)
     {
-    	//if (startScreen == false)
+    	if (startScreen == false)
         {
  			g.clearRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
  			Level lev = control.getLevel();
@@ -134,15 +134,19 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         }
     }
     
+    Action processMove = new Action()
+	{
     public void actionPerformed(ActionEvent event)
     {
     	if (event.getSource() == playButton)
         {
     		container.removeAll();
-            //startScreen = false;
-            revalidate();
-    		init(1); //should display game at level specified in parameter
-           
+            startScreen = false;
+            //revalidate();
+            addKeyListener(this);
+    		timer = new Timer(10, this);
+            timer.addActionListener(this);
+            init(1); //should display game at level specified in parameter
         }
         else if (event.getSource() == instrButton)
         {
@@ -167,4 +171,5 @@ public class GUI extends JFrame implements ActionListener, KeyListener
             }
         }
     }
+	}
 }
