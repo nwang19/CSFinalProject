@@ -18,7 +18,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     public GUI(Controller cont)
     {
         ClassLoader cldr = this.getClass().getClassLoader();
-    	ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg.png"));
+    	ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg2.png"));
     	playerImage = playerIcon.getImage();
         control = cont;
         //startScreen = true;
@@ -43,7 +43,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         container.add(gameName, BorderLayout.NORTH);*/
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	addKeyListener(this); 
-    	timer = new Timer(100, this);
+    	timer = new Timer(10, this);
         timer.addActionListener(this);
     }
 
@@ -156,9 +156,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
             {
             	Point moveLoc = control.getPlayer().getLocation();
             	if (control.getPlayer().getXState() == Player.LEFT)
-                    moveLoc = new Point((int)moveLoc.getX()-10, (int)moveLoc.getY());
+                    moveLoc = new Point((int)moveLoc.getX()-1, (int)moveLoc.getY());
             	else if (control.getPlayer().getXState() == Player.RIGHT)
-                    moveLoc = new Point((int)moveLoc.getX()+10, (int)moveLoc.getY());
+                    moveLoc = new Point((int)moveLoc.getX()+1, (int)moveLoc.getY());
             	if (control.getPlayer().getYState() != Player.STILL)
                     moveLoc = control.processJump(moveLoc);
             	
