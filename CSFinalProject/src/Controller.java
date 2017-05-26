@@ -107,20 +107,21 @@ public class Controller
 	//returns new location player will move to when jumping
 	public Point processJump(Point moveLoc)
 	{
+		//should edit bc choppy af but idc at this point
 		if (player != null && player.getYState() != Player.STILL)
 		{
 			jumpMoveCounter++;
 			int yPos = (int)moveLoc.getY();
 			Point move = moveLoc;
-			if (jumpMoveCounter == 40)
+			if (jumpMoveCounter == 50)
 			{
 				player.setYState(Player.DOWN);
 				jumpMoveCounter = 0;
 			}
 			if (player.getYState() == Player.UP)
-				move = new Point((int)move.getX(), (int)(yPos - .1*jumpMoveCounter));
+				move = new Point((int)move.getX(), (int)(yPos - .05*jumpMoveCounter));
 			else
-				move = new Point((int)move.getX(), (int)(yPos + .1*jumpMoveCounter));
+				move = new Point((int)move.getX(), (int)(yPos + .05*jumpMoveCounter));
 			System.out.println(move);
 			if ((int)move.getY() >= 600)
 			{
