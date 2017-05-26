@@ -68,7 +68,7 @@ public class Controller
 	public void nextLevel()
 	{
 		levelNum++;
-		if (levelNum <= 2)
+		if (levelNum <= 4)
 			initialize();
 		else
 		{
