@@ -20,7 +20,7 @@ public class Level {
 		baseline = 700;
 		if (level == 1)
 		{
-			end = new Point(1000, 590);
+			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			for (int x = 400; x < (int)end.getX() - 100; x += 200)
 				obstacles.add(new Obstacle(x, baseline - Obstacle.height));
@@ -30,7 +30,7 @@ public class Level {
 		}
 		else if (level == 2)
 		{
-			end = new Point(1000, 700);
+			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			//obstacles.add(new Obstacle(500, 500));
 			for (int x = 400; x < (int)end.getX() - 100; x += 200)
