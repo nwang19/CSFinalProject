@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Level {
-	static final Point start = new Point(50, 600);
+	static final Point start = new Point(25, 600);
 	private int width, height;
 	private Point end;
 	private ArrayList<Obstacle> obstacles;
@@ -22,13 +22,39 @@ public class Level {
 		{
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			for (int x = 400; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, baseline - Obstacle.height));
+			for (int x = 150; x <= 350; x += 100)
+				obstacles.add(new Obstacle(x, baseline - Obstacle.height - 10));
+			obstacles.add(new Obstacle(500, baseline-1));
+			obstacles.add(new Obstacle(500-Obstacle.width, baseline-1));
+			obstacles.add(new Obstacle(500-(2*Obstacle.width), baseline-1));
+			obstacles.add(new Obstacle(700, baseline));
+			obstacles.add(new Obstacle(900, baseline - Obstacle.height));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, Obstacle.width, Obstacle.height));
 		}
 		else if (level == 2)
+		{
+			end = new Point(1000, 690);
+			obstacles = new ArrayList<Obstacle>();
+			//obstacles.add(new Obstacle(500, 500));
+			for (int x = 400; x < (int)end.getX() - 100; x += 200)
+				obstacles.add(new Obstacle(x, 300));
+			platforms = new ArrayList<Platform>();
+			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+				platforms.add(new Platform(x, baseline, 10, 10));
+		}
+		else if (level == 3)
+		{
+			end = new Point(1000, 690);
+			obstacles = new ArrayList<Obstacle>();
+			//obstacles.add(new Obstacle(500, 500));
+			for (int x = 400; x < (int)end.getX() - 100; x += 200)
+				obstacles.add(new Obstacle(x, 300));
+			platforms = new ArrayList<Platform>();
+			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+				platforms.add(new Platform(x, baseline, 10, 10));
+		}else if (level == 4)
 		{
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
