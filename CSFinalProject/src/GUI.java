@@ -12,10 +12,14 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     private JPanel panel; 
     private JLabel gameName;
     private Timer timer;
+    private Image playerImage;
     //private boolean startScreen;
     
     public GUI(Controller cont)
     {
+        ClassLoader cldr = this.getClass().getClassLoader();
+    	ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg.png"));
+    	playerImage = playerIcon.getImage();
         control = cont;
         //startScreen = true;
         //we'll have to add gif files or something to Eclipse make the images insertable into the program
@@ -107,9 +111,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
     {
     	//if (startScreen == false)
         {
-    		ClassLoader cldr = this.getClass().getClassLoader();
-    		ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg.png"));
-    		Image image = playerIcon.getImage();
  			g.clearRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
  			Level lev = control.getLevel();
  			//Platform plat1 = lev.getPlatforms().get(0);
@@ -129,7 +130,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
  			}
  			
         
- 			g.drawImage(image, (int)control.getPlayer().getX(), (int)control.getPlayer().getY(), null);
+ 			g.drawImage(playerImage, (int)control.getPlayer().getX(), (int)control.getPlayer().getY(), null);
         }
     }
     
