@@ -3,7 +3,7 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 
 public class Level {
-	static final Point start = new Point(50, 500);
+	static final Point start = new Point(50, 600);
 	private int width, height;
 	private Point end;
 	private ArrayList<Obstacle> obstacles;
@@ -116,7 +116,7 @@ public class Level {
 		if (isValid(loc))
 		{
 			Point point = loc;
-			Rectangle next = new Rectangle((int)loc.getX()-20, (int)loc.getY()+5, Controller.pWidth-20, Controller.pHeight-10);
+			Rectangle next = new Rectangle((int)loc.getX()+5, (int)loc.getY(), Controller.pWidth-5, Controller.pHeight);
 			for (Obstacle obst : obstacles)
 			{
 				if (obst != null && obst.intersects(next))
