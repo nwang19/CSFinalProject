@@ -37,29 +37,34 @@ public class Level {
 		{
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			//obstacles.add(new Obstacle(500, 500));
-			for (int x = 400; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 300));
+			for (int x = 300; x < (int)end.getX() - 100; x += 200)
+				obstacles.add(new Obstacle(x, 500));		
+			obstacles.add(new Obstacle(200, baseline-5));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, 10, 10));
 		}
 		else if (level == 3)
 		{
+			obstacles.add(new Obstacle(200, baseline-5));
+			obstacles.add(new Obstacle(350, baseline-5));
+			obstacles.add(new Obstacle(450, baseline-5));
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
+			
 			//obstacles.add(new Obstacle(500, 500));
-			for (int x = 400; x < (int)end.getX() - 100; x += 200)
+			for (int x = 600; x < (int)end.getX() - 100; x += 200)
 				obstacles.add(new Obstacle(x, 300));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, 10, 10));
-		}else if (level == 4)
+		}
+		else if (level == 4)
 		{
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			//obstacles.add(new Obstacle(500, 500));
-			for (int x = 400; x < (int)end.getX() - 100; x += 200)
+			for (int x = 100; x < (int)end.getX() - 100; x += 200)
 				obstacles.add(new Obstacle(x, 300));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
