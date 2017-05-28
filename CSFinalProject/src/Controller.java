@@ -10,6 +10,8 @@ public class Controller
 	private int levelNum;
 	private Level level;
 	private int jumpMoveCounter;
+	private int yPos;
+	private int yVelocity;
 	static int pWidth = 45, pHeight = 100;
 	
 	public static void main(String[] args)
@@ -26,6 +28,7 @@ public class Controller
 		levelNum = 1; //++
 		level = new Level(levelNum);
 		jumpMoveCounter = 0;
+		yPos = 0;
 	}
 	
 	public void setGui(GUI g)
@@ -110,7 +113,50 @@ public class Controller
 		//should edit bc choppy af but idc at this point
 		if (player != null && player.getYState() != Player.STILL)
 		{
+			//jumpMoveCounter++;
+			if (player.getYState() == Player.UP)
+			{
+				yPos = (int)moveLoc.getY();
+				yPos -= 3;
+				if (yPos < 450)
+					player.setYState(Player.DOWN);
+			}
+			else if (player.getYState() == Player.DOWN)
+			{
+				yPos += 3;
+				if (yPos > 600)
+				{
+					player.setYState(Player.STILL);
+					yPos = 600;
+				}
+			}
+			
+			System.out.println(new Point((int)moveLoc.getX(), yPos));
+			return new Point((int)moveLoc.getX(), yPos);
+			
+			/*if (jumpMoveCounter == 0)
+			yInit = (int)moveLoc.getY();
 			jumpMoveCounter++;
+			int yPos = yInit;
+			if (player.getYState() == Player.UP)
+			{
+				yPos = yInit + (int)(7*jumpMoveCounter + 5*Math.pow(jumpMoveCounter, 2));
+				if (moveLoc.getY() <= yInit - 50)
+					player.setYState(Player.DOWN);
+			}
+			else if (player.getYState() == Player.DOWN)
+			yPos = (yInit - 50) + (int)(7*jumpMoveCounter + 5*Math.pow(jumpMoveCounter, 2));
+			if (yPos > yInit)
+			{
+				player.setYState(Player.STILL);
+				jumpMoveCounter = 0;
+				yPos = yInit;
+			}
+			System.out.println(new Point ((int)moveLoc.getX(), yPos));
+			return new Point((int)moveLoc.getX(), yPos);*/
+			
+			
+			/*
 			int yPos = (int)moveLoc.getY();
 			Point move = moveLoc;
 			if (jumpMoveCounter == 50)
@@ -128,7 +174,9 @@ public class Controller
 				player.setYState(Player.STILL);
 				jumpMoveCounter = 0;
 			}
-			return move;
+			return move;*/
+			
+			
 				
 			/*if (jumpMoveCounter == 1)
 				return new Point((int)moveLoc.getX(), (int)(moveLoc.getY() - 25));
