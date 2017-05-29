@@ -46,11 +46,11 @@ public class Level {
 		}
 		else if (level == 3)
 		{
-			obstacles.add(new Obstacle(200, baseline-5));
-			obstacles.add(new Obstacle(350, baseline-5));
-			obstacles.add(new Obstacle(450, baseline-5));
-			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
+			obstacles.add(new Obstacle(200, baseline+20));
+			obstacles.add(new Obstacle(350, baseline+20));
+			obstacles.add(new Obstacle(450, baseline+20));
+			end = new Point(1000, 690);
 			
 			//obstacles.add(new Obstacle(500, 500));
 			for (int x = 600; x < (int)end.getX() - 100; x += 200)
