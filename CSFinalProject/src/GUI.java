@@ -6,45 +6,31 @@ import javax.swing.*;
 public class GUI extends JFrame implements ActionListener, KeyListener
 {
     private Controller control;
-    private JButton playButton;
-    private JButton instrButton;
-    private Container container;
-    private JPanel panel; 
-    private JLabel gameName;
     private Timer timer;
     private Image playerImage;
-    private boolean startScreen;
-    private JComponent component;
+    private Image startScreenImg;
+    private Image instructionsImg;
+    private Boolean startScreen;
+    private Boolean instructScreen;
+    private Boolean playScreen;
     
     public GUI(Controller cont)
     {
-        ClassLoader cldr = this.getClass().getClassLoader();
+    	startScreen = true;
+    	instructScreen = false;
+    	playScreen = false;
+    	ClassLoader cldr = this.getClass().getClassLoader();
     	ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg2.png"));
     	playerImage = playerIcon.getImage();
+    	ImageIcon startIcon = new ImageIcon(cldr.getResource("StartScreen.png"));
+    	startScreenImg = startIcon.getImage();
+    	ImageIcon instructIcon = new ImageIcon(cldr.getResource("instructions.png"));
+    	instructionsImg = instructIcon.getImage();
         control = cont;
-        startScreen = true;
-        //we'll have to add gif files or something to Eclipse make the images insertable into the program
-        gameName = new JLabel("Stressedview");
-        gameName.setFont(new Font("Serif", Font.PLAIN, 50));
-        gameName.setHorizontalAlignment(SwingConstants.CENTER);
-        gameName.setForeground(Color.white);
-        playButton = new JButton("Play");
-        instrButton = new JButton("Instructions"); 
-        playButton.addActionListener(this);
-        instrButton.addActionListener(this);
-        panel = new JPanel();
-        panel.setSize(100, 100);
-        panel.setPreferredSize(new Dimension(100, 100));
-        container = getContentPane();
-        container.setBackground(Color.black);
-        panel.setBackground(Color.black);
-        panel.add(playButton);
-        panel.add(instrButton);
-        container.add(panel, BorderLayout.CENTER);
-        container.add(gameName, BorderLayout.NORTH);
-    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	
-    	
+        addKeyListener(this);
+		timer = new Timer(10, this);
+        timer.addActionListener(this);
+    	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
     }
 
     //initializes each level with components from the desired level (indicated by levelNum in parameter)
@@ -86,6 +72,27 @@ public class GUI extends JFrame implements ActionListener, KeyListener
               control.getPlayer().setYState(Player.UP);
               timer.start();
           }
+    	  else if((event.getKeyChar() == 'p' || event.getKeyChar() == 'P') || (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true)
+    	  {
+    		  startScreen = false;
+    		  playScreen = true;
+    		  instructScreen = false;
+    	  }
+    	  else if (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') 
+          {
+              startScreen = false;
+              playScreen = false;
+    		  instructScreen = true;
+    		  repaint();
+          }
+    	  else if(event.getKeyChar() == 'p' || event.getKeyChar() == 'P')
+    	  {
+    		  startScreen = false;
+    		  playScreen = true;
+    		  instructScreen = false;
+    		  repaint();
+    	  }
+    	  
       }
 
       //Stops the player's movement and resets player's state to still
@@ -109,12 +116,18 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
     public void paintOffScreen(Graphics g)
     {
-    	if (startScreen == false)
-        {
+            if(startScreen == true)
+            {
+            	g.drawImage(startScreenImg, 0, 0, null);
+            }
+            else if(instructScreen == true)
+            {
+            	g.drawImage(instructionsImg, 0, 0, null);
+            }
+            else if(playScreen == true)
+            {
  			g.clearRect((int)control.getPlayer().getX(), (int)control.getPlayer().getY(), Controller.pWidth, Controller.pHeight);
  			Level lev = control.getLevel();
- 			//Platform plat1 = lev.getPlatforms().get(0);
- 			//System.out.println("platform info: "+ plat1.getX() + " " + plat1.getY() + " " + Platform.width + " " + Platform.height);
  			for(Platform plat: lev.getPlatforms())
  			{
  				g.setColor(Color.black);
@@ -131,32 +144,16 @@ public class GUI extends JFrame implements ActionListener, KeyListener
  			
         
  			g.drawImage(playerImage, (int)control.getPlayer().getX(), (int)control.getPlayer().getY(), null);
+            }
         }
-    }
     
-    Action processMove = new Action()
-	{
+    
     public void actionPerformed(ActionEvent event)
     {
-    	if (event.getSource() == playButton)
-        {
-    		container.removeAll();
-            startScreen = false;
-            //revalidate();
-            addKeyListener(this);
-    		timer = new Timer(10, this);
-            timer.addActionListener(this);
-            init(1); //should display game at level specified in parameter
-        }
-        else if (event.getSource() == instrButton)
-        {
-        	JOptionPane.showMessageDialog(this, "Use the up, left, and right arrow keys to move and to jump over obstacles" );
-        }
-        else if (event.getSource() == timer)
+        if (event.getSource() == timer)
         {
             if (control.getPlayer().getXState() == Player.STILL && control.getPlayer().getYState() == Player.STILL)	
             	timer.stop();
-            //else
             {
             	Point moveLoc = control.getPlayer().getLocation();
             	if (control.getPlayer().getXState() == Player.LEFT)
@@ -172,4 +169,4 @@ public class GUI extends JFrame implements ActionListener, KeyListener
         }
     }
 	}
-}
+
