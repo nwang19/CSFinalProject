@@ -137,9 +137,9 @@ public class Controller
 						{
 							player.setYState(Player.STILL);
 							yPos = (int) plat.getY() - pHeight;
-							if (plat instanceof MovingPlatform)
+							if (plat instanceof MovingObject)
 							{
-								player.setXState(((MovingPlatform) plat).getDir());
+								player.setXState(((MovingObject) plat).getDir());
 							}
 						}
 						if (plat.intersects(new Rectangle((int)player.getX(), (int)player.getY(), pWidth, pHeight + 3)))
