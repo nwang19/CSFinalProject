@@ -7,6 +7,7 @@ public class Player extends Rectangle
 	//private int lives; 
 	private int xState;
 	private int yState;
+	private boolean onPlat;
 	public static final int STILL = 0;
 	public static final int LEFT = 1;
 	public static final int RIGHT = 2;
@@ -48,6 +49,15 @@ public class Player extends Rectangle
 		yState = y;
 	}
 	
+	public boolean isOnPlat()
+	{
+		return onPlat;
+	}
+	
+	public void setPlatState(boolean state)
+	{
+		onPlat = state;
+	}
 	/*public int getLives()
 	{
 		return lives;
