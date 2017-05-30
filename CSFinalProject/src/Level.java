@@ -23,12 +23,12 @@ public class Level {
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			for (int x = 150; x <= 350; x += 100)
-				obstacles.add(new Obstacle(x, baseline - Obstacle.height - 10));
-			obstacles.add(new Obstacle(500, baseline-1));
-			obstacles.add(new Obstacle(500-Obstacle.width, baseline-1));
-			obstacles.add(new Obstacle(500-(2*Obstacle.width), baseline-1));
-			obstacles.add(new Obstacle(700, baseline));
-			obstacles.add(new Obstacle(900, baseline - Obstacle.height));
+				obstacles.add(new Seagull(x, baseline - Obstacle.height - 10));
+			obstacles.add(new ToxicAP(500, baseline-1));
+			obstacles.add(new ToxicAP(500-Obstacle.width, baseline-1));
+			obstacles.add(new Book(500-(2*Obstacle.width), baseline-1));
+			obstacles.add(new Book(700, baseline));
+			obstacles.add(new Seagull(900, baseline - Obstacle.height));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, Obstacle.width, Obstacle.height));
@@ -38,9 +38,12 @@ public class Level {
 		{
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			for (int x = 300; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 500));		
-			obstacles.add(new Obstacle(200, baseline-5));
+			obstacles.add(new ToxicAP(200, baseline-5));
+			obstacles.add(new Seagull(300, baseline-30));
+			obstacles.add(new Seagull(500, baseline-30));
+			obstacles.add(new Book(700, baseline-40));
+			obstacles.add(new Seagull(900, baseline-30));
+			
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, 10, 10));
@@ -48,14 +51,19 @@ public class Level {
 		else if (level == 3)
 		{
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Obstacle(200, baseline+20));
-			obstacles.add(new Obstacle(350, baseline+20));
-			obstacles.add(new Obstacle(450, baseline+20));
+			obstacles.add(new ToxicAP(200, baseline-5));
+			obstacles.add(new ToxicAP(400, baseline-5));
+			obstacles.add(new ToxicAP(500, baseline-5));
+			obstacles.add(new Seagull(450, baseline-60));
+			obstacles.add(new Seagull(550, baseline-60));
+			obstacles.add(new Book(650, baseline-20));
+			obstacles.add(new Book(400, baseline-15));
+			obstacles.add(new Book(500, baseline-20));
 			end = new Point(1000, 690);
 			
 			//obstacles.add(new Obstacle(500, 500));
-			for (int x = 600; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 300));
+			/*for (int x = 600; x < (int)end.getX() - 100; x += 200)
+				obstacles.add(new Obstacle(x, 300));*/
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, 10, 10));
@@ -64,9 +72,18 @@ public class Level {
 		{
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			//obstacles.add(new Obstacle(500, 500));
+			obstacles.add(new Book(200, baseline-30));
+			obstacles.add(new Book(350, baseline-50));
+			obstacles.add(new Seagull(400, baseline-50));
+			obstacles.add(new Seagull(500, baseline-80));
+			obstacles.add(new Seagull(550, baseline-60));
+			obstacles.add(new Seagull(625, baseline-90));
+			obstacles.add(new Seagull(835, baseline-35));
+			
+			
+			/*//obstacles.add(new Obstacle(500, 500));
 			for (int x = 100; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 300));
+				obstacles.add(new Obstacle(x, 300));*/
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, 10, 10));
