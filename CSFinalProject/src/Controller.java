@@ -53,6 +53,10 @@ public class Controller
 		return levelNum;
 	}
 	
+	public void setLevNum(int n) 
+	{
+		levelNum = n;
+	}
 	
 	// constructs Grid with correct set of obstacles and platforms, and updates
 	// GUI's display
