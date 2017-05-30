@@ -138,8 +138,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener {
 		else if (playScreen == true) 
 		{
 			g.setColor(Color.black);
-			String s = "Lives:" + control.getPlayer().getLives();
-			g.drawString(s, 100, 100);
+			//String s = "Lives:" + control.getPlayer().getLives();
+			//g.drawString(s, 100, 100);
 			g.clearRect((int) control.getPlayer().getX(), (int) control.getPlayer().getY(), Controller.pWidth,
 					Controller.pHeight);
 			Level lev = control.getLevel();
@@ -165,6 +165,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener {
 	{
 		if (event.getSource() == timer) 
 		{
+			if (control.getPlayer().isOnPlat() == false)
+				control.getPlayer().setYState(Player.DOWN);
 			if (control.getPlayer().getXState() == Player.STILL && control.getPlayer().getYState() == Player.STILL)
 				timer.stop();
 			{
