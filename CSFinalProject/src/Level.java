@@ -4,19 +4,19 @@ import java.util.ArrayList;
 
 public class Level {
 	static final Point start = new Point(25, 600);
-	private int width, height;
+	private int screenWidth, screenHeight;
 	private Point end;
 	private ArrayList<Obstacle> obstacles;
 	private ArrayList<Platform> platforms;
-	private int baseline;
+	static int baseline;
 	private int levelNum;
 	
 	public Level(int level)
 	{
 		//use switch cases?
 		levelNum = level;
-		width = 1000;
-		height = 750;
+		screenWidth = 1000;
+		screenHeight = 750;
 		baseline = 700;
 		if (level == 1)
 		{
@@ -32,6 +32,7 @@ public class Level {
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, Obstacle.width, Obstacle.height));
+			platforms.add(new Platform(50, baseline - 50, 300, 20));
 		}
 		else if (level == 2)
 		{
@@ -102,7 +103,7 @@ public class Level {
 	{
 		if (levelNum >= 0)
 		{
-			if (loc.getX() >= 0 && loc.getX() <= width && loc.getY() >= 0 && loc.getY() <= height)
+			if (loc.getX() >= 0 && loc.getX() <= screenWidth && loc.getY() >= 0 && loc.getY() <= screenHeight)
 				return true;
 		}
 		return false;
@@ -147,7 +148,7 @@ public class Level {
 		if (isValid(loc))
 		{
 			Point point = loc;
-			Rectangle next = new Rectangle((int)loc.getX()+5, (int)loc.getY(), Controller.pWidth-5, Controller.pHeight);
+			Rectangle next = new Rectangle((int)loc.getX()+10, (int)loc.getY(), Controller.pWidth-20, Controller.pHeight);
 			for (Obstacle obst : obstacles)
 			{
 				if (obst != null && obst.intersects(next))
@@ -155,26 +156,23 @@ public class Level {
 			}
 			for (Platform plat : platforms)
 			{
-				if (plat != null)
+				if (plat != null && plat.intersects(next))
 				{
-					point = loc;
-					point = new Point((int)point.getX(), (int)(point.getY()));
+					if (xState == Player.LEFT || xState == Player.RIGHT)
+					{
+						point = new Point ((int)player.getLocation(), (int)point.getY());
+					}
 					return point;
 				
 				}
+			}
+			if (yState == Player.STILL)
+			{
+				if (player was on a platform)
+					player.setPlatState(false);
 			}
 			
 		}
 		return null;
 	}
-	
-	/*
-	 * Instruction Description (b/c i'm bored & avoiding my responsibilities):
-	 * You are a student at Westview. Use the arrow keys to move left, right, and up to navigate
-	 * your way through beige brick and palm trees to reach the end of each level, or year. Make sure
-	 * to avoid sea gulls, books, and, most of all, toxic AP culture-- they
-	 * will all make you redo the level. Good luck, and don't forget to enjoy the ride!
-	 * 
-	 * */
-		
 }
