@@ -67,6 +67,7 @@ public class Controller
 		player.setLocation(Level.start);
 		player.setXState(Player.STILL);
 		player.setYState(Player.STILL);
+		player.setPlatState(true);
 		gui.display();
 		//jumpMoveCounter = 0;
 	}
@@ -108,16 +109,16 @@ public class Controller
 		}
 	}
 
-	//returns new location player will move to when jumping
+	// returns new location player will move to when jumping
 	public Point processJump(Point moveLoc)
 	{
-		//should edit bc choppy af but idc at this point
 		if (player != null && player.getYState() != Player.STILL)
 		{
-			//jumpMoveCounter++;
+			System.out.println(player.getYState());
+			// jumpMoveCounter++;
 			if (player.getYState() == Player.UP)
 			{
-				yPos = (int)moveLoc.getY();
+				yPos = (int) moveLoc.getY();
 				yPos -= 3;
 				if (yPos < 450)
 					player.setYState(Player.DOWN);
@@ -137,20 +138,20 @@ public class Controller
 						if (player.intersects(plat))
 						{
 							player.setYState(Player.STILL);
-							player.setPlatState(true);
-							yPos = (int)plat.getY() - pHeight;
+							yPos = (int) plat.getY() - pHeight;
 							if (plat instanceof MovingPlatform)
 							{
-								player.setXState(((MovingPlatform)plat).getDir());
+								player.setXState(((MovingPlatform) plat).getDir());
 							}
 						}
+						//if (player is on top of platform)
+						//	player.setPlatState(true);
 					}
 				}
 			}
-			
-			System.out.println(new Point((int)moveLoc.getX(), yPos));
-			return new Point((int)moveLoc.getX(), yPos);
-			
+			System.out.println(new Point((int) moveLoc.getX(), yPos));
+			return new Point((int) moveLoc.getX(), yPos);
+
 			/*if (jumpMoveCounter == 0)
 			yInit = (int)moveLoc.getY();
 			jumpMoveCounter++;
