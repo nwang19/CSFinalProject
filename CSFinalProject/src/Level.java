@@ -32,7 +32,7 @@ public class Level {
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
 				platforms.add(new Platform(x, baseline, Obstacle.width, Obstacle.height));
-			platforms.add(new Platform(50, baseline - 50, 300, 20));
+			platforms.add(new Platform(70, baseline - 50, 300, 20));
 		}
 		else if (level == 2)
 		{
@@ -143,7 +143,7 @@ public class Level {
 	
 	// checks if location to move to, returns location to move to
 	// or null, if the location is outside of the grid bounds
-	public Point checkNextLoc(Point loc, int levelNum, int xState, int yState)
+	public Point checkNextLoc(Point loc, Controller ctrl, int levelNum, int xState, int yState)
 	{
 		if (isValid(loc))
 		{
@@ -159,18 +159,17 @@ public class Level {
 				if (plat != null && plat.intersects(next))
 				{
 					if (xState == Player.LEFT || xState == Player.RIGHT)
-					{
-						point = new Point ((int)player.getLocation(), (int)point.getY());
-					}
+						point = new Point ((int)ctrl.getPlayer().getLocation().getX(), (int)point.getY());
 					return point;
 				
 				}
 			}
 			if (yState == Player.STILL)
 			{
-				if (player was on a platform)
-					player.setPlatState(false);
+				if (ctrl.getPlayer().isOnPlat() == true)
+					ctrl.getPlayer().setPlatState(false);
 			}
+			return point;
 			
 		}
 		return null;
