@@ -1,7 +1,8 @@
 import java.awt.Point;
-//import java.awt.event.*;
+import java.awt.Rectangle;
 
-import javax.swing.Timer;
+//import java.awt.event.*;
+//import javax.swing.Timer;
 
 public class Controller 
 {
@@ -9,7 +10,6 @@ public class Controller
 	private Player player;
 	private int levelNum;
 	private Level level;
-	//private int jumpMoveCounter;
 	private int yPos;
 	static int pWidth = 45, pHeight = 100;
 	
@@ -26,7 +26,6 @@ public class Controller
 		player = new Player((int)Level.start.getX(), (int)Level.start.getY(), pWidth, pHeight);
 		levelNum = 1; //++
 		level = new Level(levelNum);
-		//jumpMoveCounter = 0;
 		yPos = 0;
 	}
 	
@@ -115,7 +114,6 @@ public class Controller
 		if (player != null && player.getYState() != Player.STILL)
 		{
 			System.out.println(player.getYState());
-			// jumpMoveCounter++;
 			if (player.getYState() == Player.UP)
 			{
 				yPos = (int) moveLoc.getY();
@@ -144,8 +142,10 @@ public class Controller
 								player.setXState(((MovingPlatform) plat).getDir());
 							}
 						}
-						//if (player is on top of platform)
-						//	player.setPlatState(true);
+						if (plat.intersects(new Rectangle((int)player.getX(), (int)player.getY(), pWidth, pHeight + 3)))
+						{
+							player.setPlatState(true);
+						}
 					}
 				}
 			}
