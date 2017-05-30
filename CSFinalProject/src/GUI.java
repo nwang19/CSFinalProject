@@ -46,7 +46,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    // displays game
 	    public void display() 
 	    {
-	        this.setSize(1000, 1000);
+	        this.setSize(1000, 750);
 	        this.setVisible(true);
 	        repaint();
 	    }
@@ -71,7 +71,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    // player's jumping state to true
 	    public void keyTyped(KeyEvent event) 
 	    {
-	        if (event.getKeyChar() == 32) 
+	        if (event.getKeyChar() == ' ') 
 	        {            
 	            if(control.getLevNum() > 4)
 	            {
@@ -82,7 +82,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            instructScreen = false;
 	            repaint();
 	        }
-	        else if ((event.getKeyChar() == 32)|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
+	        else if ((event.getKeyChar() == ' ')|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
 	        {
 	            startScreen = false;
 	            playScreen = true;
@@ -115,7 +115,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
 	    public void paint(Graphics g) 
 	    {
-	        Image offImage = createImage(1000, 1000);
+	        Image offImage = createImage(1000, 750);
 	        Graphics buffer = offImage.getGraphics();
 	        paintOffScreen(buffer);
 	        g.drawImage(offImage, 0, 0, null);
@@ -139,8 +139,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        else if (playScreen == true) 
 	        {
 	            g.setColor(Color.black);
-	            String s = "Lives:" + control.getPlayer().getLives();
-	            g.drawString(s, 100, 100);
 	            g.clearRect((int) control.getPlayer().getX(), (int) control.getPlayer().getY(), Controller.pWidth,
 	                    Controller.pHeight);
 	            Level lev = control.getLevel();
@@ -164,12 +162,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    
 	    public void actionPerformed(ActionEvent event) 
 		{
-			if (event.getSource() == timer) 
+	    	if (event.getSource() == timer) 
 			{
-				if (control.getPlayer().isOnPlat() == false)
+				if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() != Player.UP)
 					control.getPlayer().setYState(Player.DOWN);
 				if (control.getPlayer().getXState() == Player.STILL && control.getPlayer().getYState() == Player.STILL)
 					timer.stop();
+				else
 				{
 					Point moveLoc = control.getPlayer().getLocation();
 					if (control.getPlayer().getXState() == Player.LEFT)
@@ -179,7 +178,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 					if (control.getPlayer().getYState() != Player.STILL)
 						moveLoc = control.processJump(moveLoc);
 
-					control.processMove(control.getLevel().checkNextLoc(moveLoc, control.getLevNum(),
+					control.processMove(control.getLevel().checkNextLoc(moveLoc, control, control.getLevNum(),
 							control.getPlayer().getXState(), control.getPlayer().getYState()));
 					updateScreen(control.getPlayer());
 				}
