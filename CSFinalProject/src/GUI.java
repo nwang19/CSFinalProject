@@ -11,6 +11,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    private Image startScreenImg;
 	    private Image instructionsImg;
 	    private Image endScreenImg;
+	    private Image seagullImg;
+	    private Image bookImg;
+	    private Image toxicAPImg;
 	    private Boolean startScreen;
 	    private Boolean instructScreen;
 	    private Boolean playScreen;
@@ -29,6 +32,12 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        instructionsImg = instructIcon.getImage();
 	        ImageIcon endIcon = new ImageIcon(cldr.getResource("EndGame.jpeg"));
 	        endScreenImg = endIcon.getImage();
+		ImageIcon seagullIcon = new ImageIcon(cldr.getResource("Books.png"));
+	        seagullImg = seagullIcon.getImage();
+	        ImageIcon bookIcon = new ImageIcon(cldr.getResource("StartGame.jpeg"));
+	        bookImg = bookIcon.getImage();
+	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("Instructions.jpeg"));
+	        toxicAPImg = toxicIcon.getImage();
 	        control = cont;
 	        addKeyListener(this);
 	        timer = new Timer(10, this);
