@@ -9,7 +9,7 @@ public class Controller
 	private Player player;
 	private int levelNum;
 	private Level level;
-	private int jumpMoveCounter;
+	//private int jumpMoveCounter;
 	private int yPos;
 	static int pWidth = 45, pHeight = 100;
 	
@@ -26,7 +26,7 @@ public class Controller
 		player = new Player((int)Level.start.getX(), (int)Level.start.getY(), pWidth, pHeight);
 		levelNum = 1; //++
 		level = new Level(levelNum);
-		jumpMoveCounter = 0;
+		//jumpMoveCounter = 0;
 		yPos = 0;
 	}
 	
@@ -68,7 +68,7 @@ public class Controller
 		player.setXState(Player.STILL);
 		player.setYState(Player.STILL);
 		gui.display();
-		jumpMoveCounter = 0;
+		//jumpMoveCounter = 0;
 	}
 	
 	public void nextLevel()
@@ -98,9 +98,7 @@ public class Controller
 				}*/
 			}
 			else
-			{
 				player.setLocation(nextLoc);
-			}
 			gui.updateScreen(player);
 			if (player.contains(level.getEnd()))
 			{
@@ -139,6 +137,7 @@ public class Controller
 						if (player.intersects(plat))
 						{
 							player.setYState(Player.STILL);
+							player.setPlatState(true);
 							yPos = (int)plat.getY() - pHeight;
 							if (plat instanceof MovingPlatform)
 							{
