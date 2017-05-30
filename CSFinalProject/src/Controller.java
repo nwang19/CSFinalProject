@@ -11,7 +11,6 @@ public class Controller
 	private Level level;
 	private int jumpMoveCounter;
 	private int yPos;
-	private int yVelocity;
 	static int pWidth = 45, pHeight = 100;
 	
 	public static void main(String[] args)
@@ -124,10 +123,25 @@ public class Controller
 			else if (player.getYState() == Player.DOWN)
 			{
 				yPos += 3;
-				if (yPos > 600)
+				if (player.getY() >= Level.baseline - pHeight)
 				{
 					player.setYState(Player.STILL);
-					yPos = 600;
+					yPos = Level.baseline - pHeight;
+				}
+				else
+				{
+					for (Platform plat : level.getPlatforms())
+					{
+						if (player.intersects(plat))
+						{
+							player.setYState(Player.STILL);
+							yPos = (int)plat.getY() - pHeight;
+							if (plat instanceof MovingPlatform)
+							{
+								player.setXState(((MovingPlatform)plat).getDir());
+							}
+						}
+					}
 				}
 			}
 			
