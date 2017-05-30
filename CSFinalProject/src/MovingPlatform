@@ -1,5 +1,4 @@
-
-public class MovingPlatform extends Platform {
+public class MovingObject extends Platform {
 
 	private final int xVelocity = 1;
 	private final int yVelocity = 1;
@@ -7,7 +6,7 @@ public class MovingPlatform extends Platform {
 	private int lowerBound;
 	private int upperBound;
 	
-	public MovingPlatform(int x, int y, int w, int h, int direction, int lowerB, int upperB) {
+	public MovingObject(int x, int y, int w, int h, int direction, int lowerB, int upperB) {
 		super(x, y, w, h);
 		dir = direction;
 		lowerBound = lowerB;
