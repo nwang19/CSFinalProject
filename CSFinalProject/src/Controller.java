@@ -10,6 +10,8 @@ public class Controller
 	private Player player;
 	private int levelNum;
 	private Level level;
+	private int jumpMoveCounter;
+	private int yInit;
 	private int yPos;
 	static int pWidth = 45, pHeight = 100;
 	
@@ -27,6 +29,8 @@ public class Controller
 		levelNum = 1; //++
 		level = new Level(levelNum);
 		yPos = 0;
+		yInit = Level.baseline;
+		jumpMoveCounter = 0;
 	}
 	
 	public void setGui(GUI g)
@@ -68,7 +72,8 @@ public class Controller
 		player.setYState(Player.STILL);
 		player.setPlatState(true);
 		gui.display();
-		//jumpMoveCounter = 0;
+		yInit = Level.baseline;
+		jumpMoveCounter = 0;
 	}
 	
 	public void nextLevel()
@@ -109,16 +114,19 @@ public class Controller
 	}
 
 	// returns new location player will move to when jumping
+	//always going down though... kind of bad but it works so
 	public Point processJump(Point moveLoc)
 	{
-		if (player != null && player.getYState() != Player.STILL)
+		if (jumpMoveCounter == 0)
+			yInit = (int)player.getLocation().getY();
+		jumpMoveCounter++;
+		if (player != null /*&& player.getYState() != Player.STILL*/)
 		{
-			System.out.println(player.getYState());
 			if (player.getYState() == Player.UP)
 			{
 				yPos = (int) moveLoc.getY();
 				yPos -= 3;
-				if (yPos < 450)
+				if (yPos < yInit - 150)
 					player.setYState(Player.DOWN);
 			}
 			else if (player.getYState() == Player.DOWN)
@@ -126,30 +134,34 @@ public class Controller
 				yPos += 3;
 				if (player.getY() >= Level.baseline - pHeight)
 				{
-					player.setYState(Player.STILL);
+					//player.setYState(Player.STILL);
+					player.setPlatState(true);
 					yPos = Level.baseline - pHeight;
 				}
 				else
 				{
 					for (Platform plat : level.getPlatforms())
 					{
-						if (player.intersects(plat))
+						if (plat.intersects(new Rectangle((int)player.getX(), (int)player.getY(), pWidth, pHeight + 10)))
 						{
-							player.setYState(Player.STILL);
+							player.setYState(Player.DOWN);
 							yPos = (int) plat.getY() - pHeight;
+							jumpMoveCounter = 0;
+							player.setPlatState(true);
 							if (plat instanceof MovingObject)
 							{
-								player.setXState(((MovingObject) plat).getDir());
+								player.setXState(((MovingObject)plat).getDir());
 							}
 						}
-						if (plat.intersects(new Rectangle((int)player.getX(), (int)player.getY(), pWidth, pHeight + 3)))
-						{
-							player.setPlatState(true);
-						}
 					}
+					/*if (plat.intersects(new Rectangle((int)player.getX(), (int)player.getY(), pWidth, pHeight + 3)))
+					{
+						player.setPlatState(true);
+						jumpMoveCounter = 0;
+					}*/
 				}
 			}
-			System.out.println(new Point((int) moveLoc.getX(), yPos));
+			//System.out.println(new Point((int) moveLoc.getX(), yPos));
 			return new Point((int) moveLoc.getX(), yPos);
 
 			/*if (jumpMoveCounter == 0)
