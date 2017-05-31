@@ -43,7 +43,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        palmTreesBG = backgroundIcon.getImage();
 	        control = cont;
 	        addKeyListener(this);
-	        timer = new Timer(10, this);
+	        timer = new Timer(7, this);
 	        timer.addActionListener(this);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    }
@@ -107,9 +107,10 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            instructScreen = true;
 	            repaint();
 	        } 
-	        else if (event.getKeyChar() == 'w' || event.getKeyChar() == 'W') 
+	        else if ((event.getKeyChar() == 'w' || event.getKeyChar() == 'W') && control.getPlayer().isOnPlat()) 
 	        {
-	            control.getPlayer().setYState(Player.UP);
+	        	control.getPlayer().setYState(Player.UP);
+	            control.getPlayer().setPlatState(false);
 	            timer.start();
 	        } 
 
@@ -186,7 +187,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 		{
 	    	if (event.getSource() == timer) 
 			{
-				if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() != Player.UP)
+				if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() == Player.STILL)
 					control.getPlayer().setYState(Player.DOWN);
 				//else if (control.getPlayer().getYState() == Player.DOWN && control.getPlayer().isOnPlat() == true)
 				//	control.getPlayer().setYState(Player.STILL);
@@ -205,7 +206,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 					control.processMove(control.getLevel().checkNextLoc(moveLoc, control, control.getLevNum(),
 							control.getPlayer().getXState(), control.getPlayer().getYState()));
 					updateScreen(control.getPlayer());
-					System.out.print(control.getPlayer().getXState());
 				}
 			}
 		}
