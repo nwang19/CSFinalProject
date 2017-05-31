@@ -1,196 +1,226 @@
-import java.awt.Point;
-import java.awt.Rectangle;
-import java.util.ArrayList;
+import java.awt.*;
+import java.awt.event.*;
 
-public class Level {
-	static final Point start = new Point(25, 600);
-	private int screenWidth, screenHeight;
-	private Point end;
-	private ArrayList<Obstacle> obstacles;
-	private ArrayList<Platform> platforms;
-	static int baseline;
-	private int levelNum;
-	
-	public Level(int level)
-	{
-		//use switch cases?
-		levelNum = level;
-		screenWidth = 1000;
-		screenHeight = 750;
-		baseline = 700;
-		if (level == 1)
+import javax.swing.*;
+
+public class GUI extends JFrame implements ActionListener, KeyListener
+{
+	 private Controller control;
+	    private Timer timer;
+	    private Image playerImage;
+	    private Image startScreenImg;
+	    private Image instructionsImg;
+	    private Image endScreenImg;
+	    private Image seagullImg;
+	    private Image bookImg;
+	    private Image toxicImg;
+	    private Image palmTreesBG;
+	    private Boolean startScreen;
+	    private Boolean instructScreen;
+	    private Boolean playScreen;
+	    private int movePlat;
+
+	    public GUI(Controller cont) 
+	    {
+	        startScreen = true;
+	        instructScreen = false;
+	        playScreen = false;
+	        ClassLoader cldr = this.getClass().getClassLoader();
+	        ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg2.png"));
+	        playerImage = playerIcon.getImage();
+	        ImageIcon startIcon = new ImageIcon(cldr.getResource("StartGame.jpeg"));
+	        startScreenImg = startIcon.getImage();
+	        ImageIcon instructIcon = new ImageIcon(cldr.getResource("Instructions.jpeg"));
+	        instructionsImg = instructIcon.getImage();
+	        ImageIcon endIcon = new ImageIcon(cldr.getResource("EndGame.jpeg"));
+	        endScreenImg = endIcon.getImage();
+	        ImageIcon seagullIcon = new ImageIcon(cldr.getResource("Seagull.png"));
+	        seagullImg = seagullIcon.getImage();
+	        ImageIcon bookIcon = new ImageIcon(cldr.getResource("Books.png"));
+	        bookImg = bookIcon.getImage();
+	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
+	        toxicImg = toxicIcon.getImage();
+	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
+	        palmTreesBG = backgroundIcon.getImage();
+	        control = cont;
+	        addKeyListener(this);
+	        timer = new Timer(7, this);
+	        timer.addActionListener(this);
+	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        movePlat = 0;
+	    }
+
+	    // initializes each level with components from the desired level (indicated
+	    // by levelNum in parameter)
+	    public void init(int levelNum) 
+	    {
+	    	repaint();
+	    }
+
+	    // displays game
+	    public void display() 
+	    {
+	        this.setSize(1000, 750);
+	        this.setVisible(true);
+	        repaint();
+	    }
+
+	    // changes player’s position. Note: should repaint at the end
+	    public void updateScreen(Player player) 
+	    {
+	        repaint();
+	    }
+
+	    // checks if either right or left arrow key is pressed
+	    public void keyPressed(KeyEvent event) 
+	    {
+	        if (event.getKeyCode() == KeyEvent.VK_D)
+	            control.getPlayer().setXState(Player.RIGHT);
+	        else if (event.getKeyCode() == KeyEvent.VK_A)
+	            control.getPlayer().setXState(Player.LEFT);
+	        timer.start();
+	    }
+
+	    // checks if user hit the up arrow key. If yes, starts timer and sets
+	    // player's jumping state to true
+	    public void keyTyped(KeyEvent event) 
+	    {
+	        if (event.getKeyChar() == ' ') 
+	        {            
+	            if(control.getLevNum() > 4)
+	            {
+	                control.setLevNum(0);
+	            }
+	            startScreen = false;
+	            playScreen = true;
+	            instructScreen = false;
+	            repaint();
+	        }
+	        else if ((event.getKeyChar() == ' ')|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
+	        {
+	            startScreen = false;
+	            playScreen = true;
+	            instructScreen = false;
+	        }
+	        else if (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') 
+	        {
+	            startScreen = false;
+	            playScreen = false;
+	            instructScreen = true;
+	            repaint();
+	        } 
+	        else if ((event.getKeyChar() == 'w' || event.getKeyChar() == 'W') && control.getPlayer().isOnPlat()) 
+	        {
+	        	control.getPlayer().setYState(Player.UP);
+	            control.getPlayer().setPlatState(false);
+	            timer.start();
+	        } 
+
+	    }
+
+	    // Stops the player's movement and resets player's state to still
+	    public void keyReleased(KeyEvent event) 
+	    {
+	        // DONT FORGET TO HAVE A SEPARTE PLACE THAT STOPS THE JUMP MOTION
+	        if (event.getKeyCode() == KeyEvent.VK_D || event.getKeyCode() == KeyEvent.VK_A) 
+	        {
+	            control.getPlayer().setXState(Player.STILL);
+	        }
+	    }
+
+	    public void paint(Graphics g) 
+	    {
+	        Image offImage = createImage(1000, 750);
+	        Graphics buffer = offImage.getGraphics();
+	        paintOffScreen(buffer);
+	        g.drawImage(offImage, 0, 0, null);
+	    }
+
+	    public void paintOffScreen(Graphics g) 
+	    {
+	        if (control.getLevNum() > 4) 
+	        {
+	            playScreen = false;
+	            g.drawImage(endScreenImg, 0, 0, null);
+	        } 
+	        else if (startScreen == true) 
+	        {
+	            g.drawImage(startScreenImg, 0, 0, null);
+	        } 
+	        else if (instructScreen == true) 
+	        {
+	            g.drawImage(instructionsImg, 0, 0, null);
+	        } 
+	        else if (playScreen == true) 
+	        {
+	            g.setColor(Color.black);
+	            g.clearRect((int) control.getPlayer().getX(), (int) control.getPlayer().getY(), Controller.pWidth,
+	                    Controller.pHeight);
+	            Level lev = control.getLevel();
+	            for (Platform plat : lev.getPlatforms()) 
+	            {
+	                g.setColor(Color.black);
+	                g.drawRect((int) plat.getX(), (int) plat.getY(), Platform.width, Platform.height);
+	                g.fillRect((int) plat.getX(), (int) plat.getY(), Platform.width, Platform.height);
+	            }
+
+	            for (Obstacle obs : lev.getObstacles()) 
+	            {
+	            	if(obs instanceof Book)
+	            	{
+	            		g.drawImage(bookImg, (int) obs.getX(), (int) obs.getY(), null);
+	            	}
+	            	else if(obs instanceof ToxicAP)
+	            	{
+	            		g.drawImage(toxicImg, (int) obs.getX(), (int) obs.getY(), null);
+	            	}
+	            	else if(obs instanceof Seagull)
+	            	{
+	            		g.drawImage(seagullImg, (int) obs.getX(), (int) obs.getY(), null);
+	            	}
+	            	
+	            }
+
+	            g.drawImage(playerImage, (int) control.getPlayer().getX(), (int) control.getPlayer().getY(), null);
+	        }
+	    }
+	    
+	    public void actionPerformed(ActionEvent event) 
 		{
-			end = new Point(1000, 690);
-			obstacles = new ArrayList<Obstacle>();
-			for (int x = 150; x <= 350; x += 150)
-				//obstacles.add(new Seagull(x, baseline - Obstacle.height - 65));
-			obstacles.add(new ToxicAP(500, baseline-7));
-			obstacles.add(new ToxicAP(500-Obstacle.width, baseline-7));
-			obstacles.add(new ToxicAP(500-(2*Obstacle.width), baseline-7));
-			obstacles.add(new ToxicAP(700, baseline-7));
-			obstacles.add(new ToxicAP(700-Obstacle.width, baseline-7));
-			obstacles.add(new ToxicAP(700-(2*Obstacle.width), baseline-7));
-			obstacles.add(new Book(900, baseline-15));
-			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, baseline, Obstacle.width, Obstacle.height));
-			platforms.add(new Platform(70, baseline - 50, 300, 20));
-		}
-		else if (level == 2)
-		{
-			end = new Point(1000, 690);
-			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new ToxicAP(200, baseline-5));
-			obstacles.add(new Seagull(300, baseline-30));
-			obstacles.add(new Seagull(500, baseline-30));
-			obstacles.add(new Book(700, baseline-40));
-			obstacles.add(new Seagull(900, baseline-30));   
-			
-			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, baseline, 10, 10));
-		}
-		else if (level == 3)
-		{
-			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new ToxicAP(200, baseline-5));
-			obstacles.add(new ToxicAP(400, baseline-5));
-			obstacles.add(new ToxicAP(500, baseline-5));
-			obstacles.add(new Seagull(450, baseline-60));
-			obstacles.add(new Seagull(550, baseline-60));
-			obstacles.add(new Book(650, baseline-20));
-			obstacles.add(new Book(400, baseline-15));
-			obstacles.add(new Book(500, baseline-20));
-			end = new Point(1000, 690);
-			
-			//obstacles.add(new Obstacle(500, 500));
-			/*for (int x = 600; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 300));*/
-			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, baseline, 10, 10));
-		}
-		else if (level == 4)
-		{
-			end = new Point(1000, 690);
-			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Book(200, baseline-30));
-			obstacles.add(new Book(350, baseline-50));
-			obstacles.add(new Seagull(400, baseline-50));
-			obstacles.add(new Seagull(500, baseline-80));
-			obstacles.add(new Seagull(550, baseline-60));
-			obstacles.add(new Seagull(625, baseline-90));
-			obstacles.add(new Seagull(835, baseline-35));
-			
-			
-			/*//obstacles.add(new Obstacle(500, 500));
-			for (int x = 100; x < (int)end.getX() - 100; x += 200)
-				obstacles.add(new Obstacle(x, 300));*/
-			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, baseline, 10, 10));
-		}
-	}
-	
-	
-	public ArrayList<Obstacle> getObstacles()
-	{
-		return obstacles;
-	}
-	
-	
-	public ArrayList<Platform> getPlatforms()
-	{
-		return platforms;
-	}
-	
-	
-	public Point getEnd()
-	{
-		return end;
-	}
-	
-	
-	public int getLevelNum()
-	{
-		return levelNum;
-	}
-	
-	
-	//checks if location is within bound of screen
-	public boolean isValid(Point loc)
-	{
-		if (levelNum >= 0)
-		{
-			if (loc.getX() >= 0 && loc.getX() <= screenWidth && loc.getY() >= 0 && loc.getY() <= screenHeight)
-				return true;
-		}
-		return false;
-	}
-	
-	
-	//returns the obstacle that contains the specified point, or null if no such obstacle
-	public Obstacle getObstacle(Point loc)
-	{
-		if (levelNum != 0 && isValid(loc))
-		{
-			//not sure if loop works
-			for (Obstacle obst : obstacles)
+	    	if (event.getSource() == timer) 
 			{
-				if (obst.contains(loc))
-					return obst;
-			}
-		}
-		return null;
-	}
-	
-	
-	//returns the platform that contains the specified point, or null if no such platform
-	public Platform getPlatform(Point loc)
-	{
-		if (levelNum != 0 && isValid(loc))
-		{
-			for (Platform block : platforms)
-			{
-				if (block.contains(loc))
-					return block;
-			}
-		}
-		return null;
-	}
-	
-	
-	// checks if location to move to, returns location to move to
-	// or null, if the location is outside of the grid bounds
-	public Point checkNextLoc(Point loc, Controller ctrl, int levelNum, int xState, int yState)
-	{
-		if (isValid(loc))
-		{
-			Point point = loc;
-			Rectangle next = new Rectangle((int)loc.getX()+10, (int)loc.getY(), Controller.pWidth-20, Controller.pHeight);
-			for (Obstacle obst : obstacles)
-			{
-				if (obst != null && obst.intersects(next))
-					return Level.start;
-			}
-			for (Platform plat : platforms)
-			{
-				if (plat != null && plat.intersects(next))
+	    		Point moveLoc = control.getPlayer().getLocation();
+	    		for (Platform plat : control.getLevel().getPlatforms())
 				{
-					if (xState == Player.LEFT || xState == Player.RIGHT)
-						point = new Point ((int)ctrl.getPlayer().getLocation().getX(), (int)point.getY());
-					return point;
-				
+					movePlat++;
+	    			//if (movePlat % 2 == 0)
+					{
+	    			if (plat instanceof MovingObject)
+						((MovingObject)plat).move();
+					//if (control.getPlayer().intersects(plat))
+					//	moveLoc = new Point((int)moveLoc.getX() + ((MovingObject)plat).getXVelocity(), (int) moveLoc.getY());
+					}
+				}
+	    		if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() == Player.STILL)
+					control.getPlayer().setYState(Player.DOWN);
+				//else if (control.getPlayer().getYState() == Player.DOWN && control.getPlayer().isOnPlat() == true)
+				//	control.getPlayer().setYState(Player.STILL);
+				if (control.getPlayer().getXState() == Player.STILL && control.getPlayer().getYState() == Player.STILL)
+					timer.stop();
+				else
+				{
+					if (control.getPlayer().getXState() == Player.LEFT)
+						moveLoc = new Point((int) moveLoc.getX() - 1, (int) moveLoc.getY());
+					else if (control.getPlayer().getXState() == Player.RIGHT)
+						moveLoc = new Point((int) moveLoc.getX() + 1, (int) moveLoc.getY());
+	
+					if (control.getPlayer().getYState() != Player.STILL)
+						moveLoc = control.processJump(moveLoc);
+
+					control.processMove(control.getLevel().checkNextLoc(moveLoc, control, control.getLevNum(),
+							control.getPlayer().getXState(), control.getPlayer().getYState()));
+					updateScreen(control.getPlayer());
 				}
 			}
-			if (yState == Player.STILL)
-			{
-				if (ctrl.getPlayer().isOnPlat() == true)
-					ctrl.getPlayer().setPlatState(false);
-			}
-			return point;
-			
 		}
-		return null;
-	}
 }
