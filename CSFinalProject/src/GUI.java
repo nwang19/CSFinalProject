@@ -11,6 +11,10 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    private Image startScreenImg;
 	    private Image instructionsImg;
 	    private Image endScreenImg;
+	    private Image seagullImg;
+	    private Image bookImg;
+	    private Image toxicImg;
+	    private Image palmTreesBG;
 	    private Boolean startScreen;
 	    private Boolean instructScreen;
 	    private Boolean playScreen;
@@ -29,6 +33,14 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        instructionsImg = instructIcon.getImage();
 	        ImageIcon endIcon = new ImageIcon(cldr.getResource("EndGame.jpeg"));
 	        endScreenImg = endIcon.getImage();
+	        ImageIcon seagullIcon = new ImageIcon(cldr.getResource("Seagull.png"));
+	        seagullImg = seagullIcon.getImage();
+	        ImageIcon bookIcon = new ImageIcon(cldr.getResource("Books.png"));
+	        bookImg = bookIcon.getImage();
+	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
+	        toxicImg = toxicIcon.getImage();
+	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
+	        palmTreesBG = backgroundIcon.getImage();
 	        control = cont;
 	        addKeyListener(this);
 	        timer = new Timer(10, this);
@@ -151,9 +163,19 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
 	            for (Obstacle obs : lev.getObstacles()) 
 	            {
-	                g.setColor(Color.red);
-	                g.drawRect((int) obs.getX(), (int) obs.getY(), Obstacle.width, Obstacle.height);
-	                g.fillRect((int) obs.getX(), (int) obs.getY(), Obstacle.width, Obstacle.height);
+	            	if(obs instanceof Book)
+	            	{
+	            		g.drawImage(bookImg, (int) obs.getX(), (int) obs.getY(), null);
+	            	}
+	            	else if(obs instanceof ToxicAP)
+	            	{
+	            		g.drawImage(toxicImg, (int) obs.getX(), (int) obs.getY(), null);
+	            	}
+	            	else if(obs instanceof Seagull)
+	            	{
+	            		g.drawImage(seagullImg, (int) obs.getX(), (int) obs.getY(), null);
+	            	}
+	            	
 	            }
 
 	            g.drawImage(playerImage, (int) control.getPlayer().getX(), (int) control.getPlayer().getY(), null);
