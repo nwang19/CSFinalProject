@@ -192,11 +192,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    		Point moveLoc = control.getPlayer().getLocation();
 	    		for (Platform plat : control.getLevel().getPlatforms())
 				{
-					movePlat++;
+	    			movePlat++;
 	    			//if (movePlat % 2 == 0)
 					{
 	    			if (plat instanceof MovingObject)
-						((MovingObject)plat).move();
+	    			{
+	    				((MovingObject)plat).move();
+	    			}
 					//if (control.getPlayer().intersects(plat))
 					//	moveLoc = new Point((int)moveLoc.getX() + ((MovingObject)plat).getXVelocity(), (int) moveLoc.getY());
 					}
