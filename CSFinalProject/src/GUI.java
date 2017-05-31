@@ -18,6 +18,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    private Boolean startScreen;
 	    private Boolean instructScreen;
 	    private Boolean playScreen;
+	    private int movePlat;
 
 	    public GUI(Controller cont) 
 	    {
@@ -46,13 +47,14 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        timer = new Timer(7, this);
 	        timer.addActionListener(this);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	        movePlat = 0;
 	    }
 
 	    // initializes each level with components from the desired level (indicated
 	    // by levelNum in parameter)
 	    public void init(int levelNum) 
 	    {
-	        repaint();
+	    	repaint();
 	    }
 
 	    // displays game
@@ -187,7 +189,19 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 		{
 	    	if (event.getSource() == timer) 
 			{
-				if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() == Player.STILL)
+	    		Point moveLoc = control.getPlayer().getLocation();
+	    		for (Platform plat : control.getLevel().getPlatforms())
+				{
+					movePlat++;
+	    			//if (movePlat % 2 == 0)
+					{
+	    			if (plat instanceof MovingObject)
+						((MovingObject)plat).move();
+					//if (control.getPlayer().intersects(plat))
+					//	moveLoc = new Point((int)moveLoc.getX() + ((MovingObject)plat).getXVelocity(), (int) moveLoc.getY());
+					}
+				}
+	    		if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() == Player.STILL)
 					control.getPlayer().setYState(Player.DOWN);
 				//else if (control.getPlayer().getYState() == Player.DOWN && control.getPlayer().isOnPlat() == true)
 				//	control.getPlayer().setYState(Player.STILL);
@@ -195,11 +209,11 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 					timer.stop();
 				else
 				{
-					Point moveLoc = control.getPlayer().getLocation();
 					if (control.getPlayer().getXState() == Player.LEFT)
 						moveLoc = new Point((int) moveLoc.getX() - 1, (int) moveLoc.getY());
 					else if (control.getPlayer().getXState() == Player.RIGHT)
 						moveLoc = new Point((int) moveLoc.getX() + 1, (int) moveLoc.getY());
+	
 					if (control.getPlayer().getYState() != Player.STILL)
 						moveLoc = control.processJump(moveLoc);
 
