@@ -148,10 +148,11 @@ public class Controller
 							yPos = (int) plat.getY() - pHeight;
 							jumpMoveCounter = 0;
 							player.setPlatState(true);
-							if (plat instanceof MovingObject)
+							//sort of moves the player on the moving platform?? but too much rip
+							/*if (plat instanceof MovingObject)
 							{
-								player.setXState(((MovingObject)plat).getDir());
-							}
+								moveLoc = new Point((int)moveLoc.getX() + ((MovingObject)plat).getXVelocity(),(int) moveLoc.getY());
+							}*/
 						}
 					}
 					/*if (plat.intersects(new Rectangle((int)player.getX(), (int)player.getY(), pWidth, pHeight + 3)))
