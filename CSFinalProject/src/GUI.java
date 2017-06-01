@@ -18,7 +18,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    private Boolean startScreen;
 	    private Boolean instructScreen;
 	    private Boolean playScreen;
-	    private int movePlat;
 
 	    public GUI(Controller cont) 
 	    {
@@ -40,21 +39,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        bookImg = bookIcon.getImage();
 	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
 	        toxicImg = toxicIcon.getImage();
-	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
+	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("PalmTreeBG.jpeg"));
 	        palmTreesBG = backgroundIcon.getImage();
 	        control = cont;
 	        addKeyListener(this);
 	        timer = new Timer(7, this);
 	        timer.addActionListener(this);
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	        movePlat = 0;
-	    }
-
-	    // initializes each level with components from the desired level (indicated
-	    // by levelNum in parameter)
-	    public void init(int levelNum) 
-	    {
-	    	repaint();
 	    }
 
 	    // displays game
@@ -62,12 +53,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    {
 	        this.setSize(1000, 750);
 	        this.setVisible(true);
-	        repaint();
-	    }
-
-	    // changes player’s position. Note: should repaint at the end
-	    public void updateScreen(Player player) 
-	    {
 	        repaint();
 	    }
 
@@ -85,7 +70,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    // player's jumping state to true
 	    public void keyTyped(KeyEvent event) 
 	    {
-	        if (event.getKeyChar() == ' ') 
+	    	if ((event.getKeyChar() == ' ')|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
+	        {
+	            startScreen = false;
+	            playScreen = true;
+	            instructScreen = false;
+	        }
+	    	else if (event.getKeyChar() == ' ') 
 	        {            
 	            if(control.getLevNum() > 4)
 	            {
@@ -95,12 +86,6 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            playScreen = true;
 	            instructScreen = false;
 	            repaint();
-	        }
-	        else if ((event.getKeyChar() == ' ')|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
-	        {
-	            startScreen = false;
-	            playScreen = true;
-	            instructScreen = false;
 	        }
 	        else if (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') 
 	        {
@@ -118,16 +103,14 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 
 	    }
 
-	    // Stops the player's movement and resets player's state to still
+	    // Stops the player's x-movement and resets player's state to still
 	    public void keyReleased(KeyEvent event) 
 	    {
-	        // DONT FORGET TO HAVE A SEPARTE PLACE THAT STOPS THE JUMP MOTION
 	        if (event.getKeyCode() == KeyEvent.VK_D || event.getKeyCode() == KeyEvent.VK_A) 
-	        {
 	            control.getPlayer().setXState(Player.STILL);
-	        }
 	    }
 
+	    //Paint and paintOffScreen make images with double buffering
 	    public void paint(Graphics g) 
 	    {
 	        Image offImage = createImage(1000, 750);
@@ -153,7 +136,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        } 
 	        else if (playScreen == true) 
 	        {
-	            g.setColor(Color.black);
+	            g.drawImage(palmTreesBG, 0, 0, null);
+	        	g.setColor(Color.black);
 	            g.clearRect((int) control.getPlayer().getX(), (int) control.getPlayer().getY(), Controller.pWidth,
 	                    Controller.pHeight);
 	            Level lev = control.getLevel();
@@ -167,20 +151,12 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            for (Obstacle obs : lev.getObstacles()) 
 	            {
 	            	if(obs instanceof Book)
-	            	{
 	            		g.drawImage(bookImg, (int) obs.getX(), (int) obs.getY(), null);
-	            	}
 	            	else if(obs instanceof ToxicAP)
-	            	{
 	            		g.drawImage(toxicImg, (int) obs.getX(), (int) obs.getY(), null);
-	            	}
 	            	else if(obs instanceof Seagull)
-	            	{
 	            		g.drawImage(seagullImg, (int) obs.getX(), (int) obs.getY(), null);
-	            	}
-	            	
 	            }
-
 	            g.drawImage(playerImage, (int) control.getPlayer().getX(), (int) control.getPlayer().getY(), null);
 	        }
 	    }
@@ -192,36 +168,23 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    		Point moveLoc = control.getPlayer().getLocation();
 	    		for (Platform plat : control.getLevel().getPlatforms())
 				{
-	    			movePlat++;
-	    			//if (movePlat % 2 == 0)
-					{
 	    			if (plat instanceof MovingObject)
-	    			{
 	    				((MovingObject)plat).move();
-	    			}
-					//if (control.getPlayer().intersects(plat))
-					//	moveLoc = new Point((int)moveLoc.getX() + ((MovingObject)plat).getXVelocity(), (int) moveLoc.getY());
-					}
 				}
 	    		if (control.getPlayer().isOnPlat() == false && control.getPlayer().getYState() == Player.STILL)
 					control.getPlayer().setYState(Player.DOWN);
-				//else if (control.getPlayer().getYState() == Player.DOWN && control.getPlayer().isOnPlat() == true)
-				//	control.getPlayer().setYState(Player.STILL);
-				if (control.getPlayer().getXState() == Player.STILL && control.getPlayer().getYState() == Player.STILL)
-					timer.stop();
 				else
 				{
 					if (control.getPlayer().getXState() == Player.LEFT)
 						moveLoc = new Point((int) moveLoc.getX() - 1, (int) moveLoc.getY());
 					else if (control.getPlayer().getXState() == Player.RIGHT)
 						moveLoc = new Point((int) moveLoc.getX() + 1, (int) moveLoc.getY());
-	
 					if (control.getPlayer().getYState() != Player.STILL)
 						moveLoc = control.processJump(moveLoc);
-
 					control.processMove(control.getLevel().checkNextLoc(moveLoc, control, control.getLevNum(),
 							control.getPlayer().getXState(), control.getPlayer().getYState()));
-					updateScreen(control.getPlayer());
+					repaint();
 				}
 			}
 		}
+}
