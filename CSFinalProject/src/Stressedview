@@ -1,0 +1,11 @@
+
+public class Stressedview {
+	
+	public static void main(String[] args)
+	{
+		Controller c = new Controller();
+		GUI gui = new GUI(c);
+		c.setGui(gui);
+		c.initialize();
+	}
+}
