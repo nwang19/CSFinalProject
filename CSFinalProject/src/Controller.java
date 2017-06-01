@@ -12,7 +12,7 @@ public class Controller {
 	private int jumpMoveCounter;
 	private int yInit;
 	private int yPos;
-	static int pWidth = 45, pHeight = 100;
+	static int pWidth = 45, pHeight = 75;
 
 	public static void main(String[] args) {
 		Controller c = new Controller();
@@ -58,7 +58,7 @@ public class Controller {
 		level = new Level(levelNum);
 		player.setLocation(level.getStart());
 		player.setXState(Player.STILL);
-		player.setYState(Player.STILL);
+		player.setYState(Player.DOWN);
 		player.setPlatState(true);
 		gui.display();
 		yInit = Level.baseline;
@@ -109,23 +109,33 @@ public class Controller {
 			{
 				yPos = (int) moveLoc.getY();
 				yPos -= 3;
+				for (Platform plat : level.getPlatforms())
+				{
+					if (plat.intersects(new Rectangle((int) player.getX(), (int) player.getY() - 1, pWidth, 1)))
+					{
+						player.setYState(Player.DOWN);
+						yPos = (int)player.getLocation().getY() + 2;
+					}
+				}
 				if (yPos < yInit - 150)
 					player.setYState(Player.DOWN);
 			}
 			else if (player.getYState() == Player.DOWN)
 			{
+				
 				yPos += 3;
-				if (player.getY() >= Level.baseline - pHeight)
+				/*if (player.getY() >= Level.baseline - pHeight)
 				{
 					// player.setYState(Player.STILL);
+					jumpMoveCounter = 0;
 					player.setPlatState(true);
 					yPos = Level.baseline - pHeight;
 				}
-				else
+				else*/
 				{
 					for (Platform plat : level.getPlatforms())
 					{
-						if (plat.intersects(new Rectangle((int) player.getX(), (int) player.getY(), pWidth, pHeight + 2)))
+						if (plat.intersects(new Rectangle((int) player.getX()+10, (int)player.getY(), pWidth-10, pHeight + 2)))
 						{
 							player.setYState(Player.DOWN);
 							yPos = (int) plat.getY() - pHeight;
