@@ -6,7 +6,6 @@ public class MovingObject extends Platform {
 	private int dir;
 	private int lowerBound;
 	private int upperBound;
-	//private int counter;
 	
 	public MovingObject(int x, int y, int w, int h, int direction, int lowerB, int upperB) {
 		super(x, y, w, h);
@@ -17,7 +16,6 @@ public class MovingObject extends Platform {
 			velocity = -1;
 		else
 			velocity = 1;
-		//counter = 0;
 	}
 	
 	public int getDir()
@@ -62,8 +60,6 @@ public class MovingObject extends Platform {
 	
 	public void move()
 	{
-		//counter++;
-		//if (counter % 2 == 0)
 		{
 			Point moveLoc = getLocation();
 			moveLoc = new Point((int) moveLoc.getX() + velocity, (int) moveLoc.getY());
