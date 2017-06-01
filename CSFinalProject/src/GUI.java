@@ -34,7 +34,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        instructionsImg = instructIcon.getImage();
 	        ImageIcon endIcon = new ImageIcon(cldr.getResource("EndGame.jpeg"));
 	        endScreenImg = endIcon.getImage();
-	        ImageIcon seagullIcon = new ImageIcon(cldr.getResource("Seagull.png"));
+	        ImageIcon seagullIcon = new ImageIcon(cldr.getResource("Seagull.gif"));
 	        seagullImg = seagullIcon.getImage();
 	        ImageIcon bookIcon = new ImageIcon(cldr.getResource("Books.png"));
 	        bookImg = bookIcon.getImage();
@@ -160,8 +160,8 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            for (Platform plat : lev.getPlatforms()) 
 	            {
 	                g.setColor(Color.black);
-	                g.drawRect((int) plat.getX(), (int) plat.getY(), Platform.width, Platform.height);
-	                g.fillRect((int) plat.getX(), (int) plat.getY(), Platform.width, Platform.height);
+	                g.drawRect((int) plat.getX(), (int) plat.getY(),(int) plat.getWidth(), (int)plat.getHeight());
+	                g.fillRect((int) plat.getX(), (int) plat.getY(), (int) plat.getWidth(), (int) plat.getHeight());
 	            }
 
 	            for (Obstacle obs : lev.getObstacles()) 
@@ -225,4 +225,3 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 				}
 			}
 		}
-}
