@@ -26,9 +26,9 @@ public class Level {
 			obstacles.add(new Book(400, baseline-15));
 			obstacles.add(new Book(750, baseline-15));
 			obstacles.add(new ToxicAP(200, baseline-408));
-			obstacles.add(new ToxicAP(200-Obstacle.width, baseline-408));
+			obstacles.add(new ToxicAP(200-Obstacle.WIDTH, baseline-408));
 			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+			for (int x = 0; x < (int)end.getX(); x += 300)
 				platforms.add(new Platform(x, baseline, 300, 20));
 			platforms.add(new Platform(0, baseline - 400, 300, 20));
 			platforms.add(new Platform(350, baseline - 350, 250, 20));
@@ -42,9 +42,9 @@ public class Level {
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new ToxicAP(600, baseline-7));
-			obstacles.add(new ToxicAP(600-Obstacle.width, baseline-7));
+			obstacles.add(new ToxicAP(600-Obstacle.WIDTH, baseline-7));
 			obstacles.add(new ToxicAP(220, baseline-210));
-			obstacles.add(new ToxicAP(220-Obstacle.width, baseline-210));
+			obstacles.add(new ToxicAP(220-Obstacle.WIDTH, baseline-210));
 			obstacles.add(new Book(200, baseline-225));
 			obstacles.add(new Book(350, baseline-225));
 			obstacles.add(new Book(760, baseline-30));
@@ -54,7 +54,7 @@ public class Level {
 			obstacles.add(new Seagull(770, baseline-326)); 
 			
 			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+			for (int x = 0; x < (int)end.getX(); x += 300)
 				platforms.add(new Platform(x, baseline,300, 20));
 			platforms.add(new Platform(0, baseline - 400, 150, 20));
 			platforms.add(new Platform(180, baseline - 200, 100, 20));
@@ -68,11 +68,11 @@ public class Level {
 			start = new Point(0, baseline - 320);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new ToxicAP(200, baseline-408));
-			obstacles.add(new ToxicAP(200-Obstacle.width, baseline-408));
+			obstacles.add(new ToxicAP(200-Obstacle.WIDTH, baseline-408));
 			obstacles.add(new ToxicAP(300, baseline-7));
-			obstacles.add(new ToxicAP(300-Obstacle.width, baseline-7));
+			obstacles.add(new ToxicAP(300-Obstacle.WIDTH, baseline-7));
 			obstacles.add(new ToxicAP(345, baseline-288));
-			obstacles.add(new ToxicAP(345-Obstacle.width, baseline-288));
+			obstacles.add(new ToxicAP(345-Obstacle.WIDTH, baseline-288));
 			obstacles.add(new ToxicAP(800, baseline-7));
 			
 			obstacles.add(new Seagull(335, baseline-435));
@@ -90,7 +90,7 @@ public class Level {
 			end = new Point(1000, 690);
 			
 			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+			for (int x = 0; x < (int)end.getX(); x += 300)
 				platforms.add(new Platform(x, baseline, 300, 20));
 			platforms.add(new Platform(0, baseline - 400, 320, 20));
 			platforms.add(new Platform(300, baseline - 280, 100, 20));
@@ -118,7 +118,7 @@ public class Level {
 			obstacles.add(new Seagull(800, baseline-290));
 			
 			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += Platform.width)
+			for (int x = 0; x < (int)end.getX(); x += 300)
 				platforms.add(new Platform(x, baseline, 300, 20));
 			platforms.add(new Platform(0, baseline - 400, 180, 20));
 			platforms.add(new Platform(275, baseline - 300, 250, 20));
@@ -127,36 +127,38 @@ public class Level {
 		}
 	}
 	
-	
+	//Returns an ArrayList of obstacles in current level
 	public ArrayList<Obstacle> getObstacles()
 	{
 		return obstacles;
 	}
 	
-	
+	//Returns an ArrayList of platforms in current level
 	public ArrayList<Platform> getPlatforms()
 	{
 		return platforms;
 	}
 	
-	
-	public Point getEnd()
-	{
-		return end;
-	}
-	
+	//Returns the start point of current level
 	public Point getStart()
 	{
 		return start;
 	}
 	
+	//Returns the end point of current level
+	public Point getEnd()
+	{
+		return end;
+	}
+		
+	//Returns level number
 	public int getLevelNum()
 	{
 		return levelNum;
 	}
 	
 	
-	//checks if location is within bound of screen
+	//checks if location is within bounds of the screen
 	public boolean isValid(Point loc)
 	{
 		if (levelNum >= 0)
@@ -173,7 +175,6 @@ public class Level {
 	{
 		if (levelNum != 0 && isValid(loc))
 		{
-			//not sure if loop works
 			for (Obstacle obst : obstacles)
 			{
 				if (obst.contains(loc))
@@ -182,7 +183,6 @@ public class Level {
 		}
 		return null;
 	}
-	
 	
 	//returns the platform that contains the specified point, or null if no such platform
 	public Platform getPlatform(Point loc)
@@ -228,7 +228,6 @@ public class Level {
 					ctrl.getPlayer().setPlatState(false);
 			}
 			return point;
-			
 		}
 		return null;
 	}
