@@ -22,10 +22,10 @@ public class Controller {
 	}
 
 	public Controller() {
-		player = new Player((int) Level.start.getX(), (int) Level.start.getY(),
-				pWidth, pHeight);
 		levelNum = 1; // ++
 		level = new Level(levelNum);
+		player = new Player((int) level.getStart().getX(), (int) level.getStart().getY(),
+				pWidth, pHeight);
 		yPos = 0;
 		yInit = Level.baseline;
 		jumpMoveCounter = 0;
@@ -56,7 +56,7 @@ public class Controller {
 	public void initialize() {
 		// timer.stop()
 		level = new Level(levelNum);
-		player.setLocation(Level.start);
+		player.setLocation(level.getStart());
 		player.setXState(Player.STILL);
 		player.setYState(Player.STILL);
 		player.setPlatState(true);
@@ -79,7 +79,7 @@ public class Controller {
 	public void processMove(Point nextLoc) {
 
 		if (nextLoc != null) {
-			if (nextLoc.equals(Level.start)) {
+			if (nextLoc.equals(level.getStart())) {
 				// if (player.getLives() > 1)
 				initialize();
 				/*
