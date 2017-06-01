@@ -19,7 +19,7 @@ public class Level {
 		baseline = 700;
 		if (level == 1)
 		{
-			start = new Point(0, 200);
+			start = new Point(0, baseline - 320);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new Seagull(180, baseline - 180));
@@ -38,7 +38,7 @@ public class Level {
 		}
 		else if (level == 2)
 		{
-			start = new Point(0, 200);
+			start = new Point(0, baseline - 320);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new ToxicAP(600, baseline-7));
@@ -65,7 +65,7 @@ public class Level {
 		}
 		else if (level == 3)
 		{
-			start = new Point(0, 200);
+			start = new Point(0, baseline - 320);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new ToxicAP(200, baseline-408));
 			obstacles.add(new ToxicAP(200-Obstacle.width, baseline-408));
@@ -101,7 +101,7 @@ public class Level {
 		}
 		else if (level == 4)
 		{
-			start = new Point(0, 200);
+			start = new Point(0, baseline - 320);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new Book(180, baseline-30));
