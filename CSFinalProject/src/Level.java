@@ -45,8 +45,8 @@ public class Level {
 			obstacles.add(new ToxicAP(600-Obstacle.width, baseline-7));
 			obstacles.add(new ToxicAP(220, baseline-210));
 			obstacles.add(new ToxicAP(220-Obstacle.width, baseline-210));
-			obstacles.add(new Book(200, baseline-30));
-			obstacles.add(new Book(350, baseline-30));
+			obstacles.add(new Book(200, baseline-225));
+			obstacles.add(new Book(350, baseline-225));
 			obstacles.add(new Book(760, baseline-30));
 			obstacles.add(new Seagull(150, baseline-250));
 			obstacles.add(new Seagull(580, baseline-470));
@@ -67,22 +67,36 @@ public class Level {
 		{
 			start = new Point(0, 200);
 			obstacles = new ArrayList<Obstacle>();
+			obstacles.add(new ToxicAP(200, baseline-408));
+			obstacles.add(new ToxicAP(200-Obstacle.width, baseline-408));
 			obstacles.add(new ToxicAP(300, baseline-7));
 			obstacles.add(new ToxicAP(300-Obstacle.width, baseline-7));
-			obstacles.add(new ToxicAP(300-(2*Obstacle.width), baseline-7));
-			obstacles.add(new ToxicAP(500, baseline-7));
-			obstacles.add(new ToxicAP(500-Obstacle.width, baseline-7));
-			obstacles.add(new ToxicAP(500-(2*Obstacle.width), baseline-7));
-			obstacles.add(new Seagull(600, baseline-90));
-			obstacles.add(new Seagull(700, baseline-90));
-			obstacles.add(new Book(650, baseline-20));
-			obstacles.add(new Book(800, baseline-15));
-			obstacles.add(new Book(850, baseline-20));
+			obstacles.add(new ToxicAP(345, baseline-288));
+			obstacles.add(new ToxicAP(345-Obstacle.width, baseline-288));
+			obstacles.add(new ToxicAP(800, baseline-7));
+			
+			obstacles.add(new Seagull(335, baseline-435));
+			obstacles.add(new Seagull(335, baseline-380));
+			obstacles.add(new Seagull(550, baseline-40));
+			obstacles.add(new Seagull(755, baseline-40));	
+			obstacles.add(new Seagull(575, baseline-158));
+			obstacles.add(new Seagull(650, baseline-300));
+			
+			obstacles.add(new Book(560, baseline-400));
+			obstacles.add(new Book(560, baseline-420));			
+			obstacles.add(new Book(680, baseline-265));
+			obstacles.add(new Book(260, baseline-15));
+			obstacles.add(new Book(260, baseline-30));
 			end = new Point(1000, 690);
 			
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, baseline, 10, 10));
+				platforms.add(new Platform(x, baseline, 300, 20));
+			platforms.add(new Platform(0, baseline - 400, 320, 20));
+			platforms.add(new Platform(300, baseline - 280, 100, 20));
+			platforms.add(new Platform(415, baseline - 375, 200, 20));
+			platforms.add(new Platform(600, baseline - 250, 120, 20));
+			platforms.add(new Platform(500, baseline - 120, 100, 20));
 			
 		}
 		else if (level == 4)
@@ -90,18 +104,26 @@ public class Level {
 			start = new Point(0, 200);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Book(200, baseline-30));
-			obstacles.add(new Book(350, baseline-50));
-			obstacles.add(new Book(350, baseline-30));
-			obstacles.add(new Seagull(450, baseline-50));
+			obstacles.add(new Book(180, baseline-30));
+			obstacles.add(new Book(210, baseline-30));
+			obstacles.add(new Book(890, baseline-30));
+			obstacles.add(new Book(700, baseline-410));
+			obstacles.add(new Book(725, baseline-410));
+			
+			obstacles.add(new ToxicAP(400, baseline-308));
+			
 			obstacles.add(new Seagull(550, baseline-50));
-			obstacles.add(new Seagull(650, baseline-80));
-			obstacles.add(new Seagull(750, baseline-90));
-			obstacles.add(new Seagull(860, baseline-50));
+			obstacles.add(new Seagull(660, baseline-50));
+			obstacles.add(new Seagull(200, baseline-350));
+			obstacles.add(new Seagull(800, baseline-290));
 			
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += Platform.width)
-				platforms.add(new Platform(x, baseline, 10, 10));
+				platforms.add(new Platform(x, baseline, 300, 20));
+			platforms.add(new Platform(0, baseline - 400, 180, 20));
+			platforms.add(new Platform(275, baseline - 300, 250, 20));
+			platforms.add(new Platform(590, baseline - 375, 200, 20));
+			platforms.add(new Platform(765, baseline - 250, 100, 20));
 		}
 	}
 	
