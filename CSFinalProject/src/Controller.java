@@ -9,7 +9,7 @@ public class Controller {
 	private int jumpMoveCounter;
 	private int yInit;
 	private int yPos;
-	static int pWidth = 45, pHeight = 75;
+	static int pWidth = 45, pHeight = 60;
 
 	public Controller() {
 		levelNum = 1;
@@ -88,7 +88,7 @@ public class Controller {
 			if (player.getYState() == Player.UP)
 			{
 				yPos = (int) moveLoc.getY();
-				yPos -= 3;
+				yPos -= 2;
 				for (Platform plat : level.getPlatforms())
 				{
 					if (plat.intersects(new Rectangle((int) player.getX(), (int) player.getY() - 1, pWidth, 1)))
@@ -103,7 +103,7 @@ public class Controller {
 			else if (player.getYState() == Player.DOWN)
 			{
 				yPos = (int) moveLoc.getY();
-				yPos += 3;
+				yPos += 2;
 					for (Platform plat : level.getPlatforms())
 					{
 						if (plat.intersects(new Rectangle((int) player.getX()+10, (int)player.getY(), pWidth-10, pHeight + 2)))
