@@ -47,7 +47,7 @@ public class Controller {
 		player.setLocation(level.getStart());
 		player.setXState(Player.STILL);
 		player.setYState(Player.DOWN);
-		player.setPlatState(true);
+		player.setPlatState(false);
 		gui.display();
 		yInit = Level.baseline;
 		jumpMoveCounter = 0;
@@ -102,6 +102,7 @@ public class Controller {
 			}
 			else if (player.getYState() == Player.DOWN)
 			{
+				yPos = (int) moveLoc.getY();
 				yPos += 3;
 					for (Platform plat : level.getPlatforms())
 					{
