@@ -70,13 +70,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    // player's jumping state to true
 	    public void keyTyped(KeyEvent event) 
 	    {
-	    	if ((event.getKeyChar() == ' ')|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
-	        {
-	            startScreen = false;
-	            playScreen = true;
-	            instructScreen = false;
-	        }
-	    	else if (event.getKeyChar() == ' ') 
+	    	if (event.getKeyChar() == ' ') 
 	        {            
 	            if(control.getLevNum() > 4)
 	            {
@@ -87,6 +81,13 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            instructScreen = false;
 	            repaint();
 	        }
+	    	else if ((event.getKeyChar() == ' ')|| (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') && playScreen == true) 
+	        {
+	            startScreen = false;
+	            playScreen = true;
+	            instructScreen = false;
+	        }
+	    	
 	        else if (event.getKeyChar() == 'i' || event.getKeyChar() == 'I') 
 	        {
 	            startScreen = false;
