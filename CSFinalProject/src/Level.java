@@ -38,7 +38,7 @@ public class Level {
 		}
 		else if (level == 2)
 		{
-			start = new Point(0, 0);
+				start = new Point(0, 0);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
 			for(int i = 1; i < 8; i++)
@@ -55,8 +55,7 @@ public class Level {
 			   obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline+50));
 			}
 				
-			obstacles.add(new Book(200, baseline-260));
-			obstacles.add(new Book(320, baseline-260));
+			obstacles.add(new Book(200, baseline-245));
 			obstacles.add(new Seagull(400, baseline-65));
 			obstacles.add(new Seagull(700, baseline-65));
 			obstacles.add(new Seagull(760, baseline-480)); 
@@ -69,7 +68,7 @@ public class Level {
 			platforms.add(new Platform(580, baseline - 470, 30, 31));
 			platforms.add(new Platform(700, baseline - 419, 90, 31));
 			platforms.add(new MovingObject(705, baseline - 300, 150, 31, Player.LEFT, 420, 1000));
-			platforms.add(new Platform(120, baseline - 240, 300, 31));
+			platforms.add(new Platform(120, baseline - 215, 300, 31));
 			platforms.add(new Platform(0, baseline-30, 80, 31));
 			platforms.add(new MovingObject(100, baseline-30, 200, 31, Player.LEFT, 80, 840));
 			platforms.add(new Platform(840, baseline-30, 160, 31));
