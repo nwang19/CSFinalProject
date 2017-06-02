@@ -22,45 +22,53 @@ public class Level {
 			start = new Point(0, 0);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Seagull(180, baseline - 180));
-			obstacles.add(new Book(400, baseline-15));
-			obstacles.add(new Book(750, baseline-15));
+			/*obstacles.add(new Seagull(415, baseline - 245));
+			obstacles.add(new Book(275, baseline-230));
+			obstacles.add(new Book(800, baseline-15));
 			obstacles.add(new ToxicAP(200, baseline-408));
-			obstacles.add(new ToxicAP(200-Obstacle.WIDTH, baseline-408));
+			obstacles.add(new ToxicAP(200-Obstacle.WIDTH, baseline-408));*/
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += 300)
 				platforms.add(new Platform(x, baseline, 300, 31));
-			platforms.add(new Platform(0, baseline - 400, 300, 31));
-			platforms.add(new Platform(350, baseline - 350, 250, 31));
-			platforms.add(new Platform(550, baseline - 200, 120, 31));
-			platforms.add(new Platform(180, baseline - 125, 180, 31));
-			platforms.add(new MovingObject(70, baseline - 50, 300, 31, Player.LEFT, 25, 500));
+			/*platforms.add(new Platform(0, baseline - 400, 600, 31));
+			platforms.add(new Platform(200, baseline - 200, 400, 31));
+			platforms.add(new Platform(550, baseline - 280, 50, 80));
+			platforms.add(new MovingObject(640, baseline - 280, 150, 31, Player.LEFT, 590, 825));
+			platforms.add(new Platform(850, baseline - 280, 1000, 31));*/
 		}
 		else if (level == 2)
 		{
 			start = new Point(0, 0);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new ToxicAP(600, baseline-7));
-			obstacles.add(new ToxicAP(600-Obstacle.WIDTH, baseline-7));
-			obstacles.add(new ToxicAP(220, baseline-210));
-			obstacles.add(new ToxicAP(220-Obstacle.WIDTH, baseline-210));
-			obstacles.add(new Book(200, baseline-225));
-			obstacles.add(new Book(350, baseline-225));
-			obstacles.add(new Book(760, baseline-30));
-			obstacles.add(new Seagull(150, baseline-250));
-			obstacles.add(new Seagull(580, baseline-470));
-			obstacles.add(new Seagull(630, baseline-470));
-			obstacles.add(new Seagull(770, baseline-326)); 
+			for(int i = 1; i < 8; i++)
+			{
+				obstacles.add(new ToxicAP(625 -(i *Obstacle.WIDTH), baseline-419));
+			}
+			for(int i = 1; i < 20; i++)
+			{
+				obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline-190));
+			}
+				
+			obstacles.add(new Book(200, baseline-200));
+			obstacles.add(new Book(350, baseline-200));
+			obstacles.add(new Seagull(150, baseline-50));
+			obstacles.add(new Seagull(445, baseline-50));
+			obstacles.add(new Seagull(700, baseline-50));
+			obstacles.add(new Seagull(760, baseline-480)); 
 			
 			platforms = new ArrayList<Platform>();
-			for (int x = 0; x < (int)end.getX(); x += 300)
-				platforms.add(new Platform(x, baseline,300, 31));
-			platforms.add(new Platform(0, baseline - 400, 150, 31));
-			platforms.add(new Platform(180, baseline - 200, 100, 31));
-			platforms.add(new Platform(250, baseline - 350, 200, 31));
-			platforms.add(new Platform(550, baseline - 420, 120, 31));
-			platforms.add(new Platform(700, baseline - 280, 100, 31));
+			platforms.add(new Platform(0, baseline - 450, 150, 31));
+			platforms.add(new Platform(120, baseline - 419, 300, 31));
+			platforms.add(new Platform(460, baseline - 470, 30, 31));
+			platforms.add(new Platform(500, baseline - 470, 30, 31));
+			platforms.add(new Platform(580, baseline - 470, 30, 31));
+			platforms.add(new Platform(700, baseline - 419, 90, 31));
+			platforms.add(new MovingObject(705, baseline - 270, 150, 31, Player.LEFT, 420, 1000));
+			platforms.add(new Platform(120, baseline - 190, 300, 31));
+			platforms.add(new Platform(0, baseline, 80, 31));
+			platforms.add(new MovingObject(100, baseline, 200, 31, Player.LEFT, 80, 840));
+			platforms.add(new Platform(840, baseline, 160, 31));
 		}
 		else if (level == 3)
 		{
