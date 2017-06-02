@@ -15,6 +15,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	    private Image bookImg;
 	    private Image toxicImg;
 	    private Image palmTreesBG;
+	    private Image endFlag;
 	    private Boolean startScreen;
 	    private Boolean instructScreen;
 	    private Boolean playScreen;
@@ -25,11 +26,11 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        instructScreen = false;
 	        playScreen = false;
 	        ClassLoader cldr = this.getClass().getClassLoader();
-	        ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImg2.png"));
+	        ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImage2.png"));
 	        playerImage = playerIcon.getImage();
-	        ImageIcon startIcon = new ImageIcon(cldr.getResource("StartGame.jpeg"));
+	        ImageIcon startIcon = new ImageIcon(cldr.getResource("GameScreens.png"));
 	        startScreenImg = startIcon.getImage();
-	        ImageIcon instructIcon = new ImageIcon(cldr.getResource("Instructions.jpeg"));
+	        ImageIcon instructIcon = new ImageIcon(cldr.getResource("Instructions (1).jpeg"));
 	        instructionsImg = instructIcon.getImage();
 	        ImageIcon endIcon = new ImageIcon(cldr.getResource("EndGame.jpeg"));
 	        endScreenImg = endIcon.getImage();
@@ -37,10 +38,12 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        seagullImg = seagullIcon.getImage();
 	        ImageIcon bookIcon = new ImageIcon(cldr.getResource("Books.png"));
 	        bookImg = bookIcon.getImage();
-	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
+	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture (3).png"));
 	        toxicImg = toxicIcon.getImage();
-	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("PalmTreeBG.jpeg"));
+	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("PalmTreeBG (1).jpeg"));
 	        palmTreesBG = backgroundIcon.getImage();
+	        ImageIcon endFlagIcon = new ImageIcon(cldr.getResource("EndFlag.png"));
+	        endFlag = endFlagIcon.getImage();
 	        control = cont;
 	        addKeyListener(this);
 	        timer = new Timer(7, this);
@@ -48,7 +51,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    }
 
-	    // displays game
+	 // displays game
 	    public void display() 
 	    {
 	        this.setSize(1000, 750);
@@ -137,10 +140,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        } 
 	        else if (playScreen == true) 
 	        {
-	            g.drawImage(palmTreesBG, 0, 0, null);
-	        	g.setColor(Color.black);
-	            g.clearRect((int) control.getPlayer().getX(), (int) control.getPlayer().getY(), Controller.pWidth,
-	                    Controller.pHeight);
+	            
+	        	g.drawImage(palmTreesBG, 0, 0, null);
+	        	g.drawImage(endFlag, (int)control.getLevel().getEnd().getX(), (int)control.getLevel().getEnd().getY()-50, null);
 	            Level lev = control.getLevel();
 	            for (Platform plat : lev.getPlatforms()) 
 	            {
