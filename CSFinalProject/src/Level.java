@@ -20,7 +20,7 @@ public class Level {
 		if (level == 1)
 		{
 			start = new Point(0, 0);
-			end = new Point(1000, 690);
+			end = new Point(955, 690);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new Seagull(415, baseline - 245));
 			obstacles.add(new Book(275, baseline-230));
@@ -38,13 +38,14 @@ public class Level {
 		}
 		else if (level == 2)
 		{
-				start = new Point(0, 0);
-			end = new Point(1000, 690);
+			start = new Point(0, 0);
+			end = new Point(955, 660);
 			obstacles = new ArrayList<Obstacle>();
 			for(int i = 1; i < 11; i++)
 			{
 				obstacles.add(new ToxicAP(700 -(i *Obstacle.WIDTH), baseline-419));
 			}
+			
 			for(int i = 1; i < 20; i++)
 			{
 				obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline-240));
@@ -54,10 +55,7 @@ public class Level {
 			{
 			   obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline+50));
 			}
-				
 			obstacles.add(new Book(200, baseline-235));
-			//obstacles.add(new Seagull(400, baseline-65));
-			//obstacles.add(new Seagull(700, baseline-65));
 			obstacles.add(new Seagull(760, baseline-480)); 
 			
 			platforms = new ArrayList<Platform>();
@@ -75,6 +73,7 @@ public class Level {
 		}
 		else if (level == 3)
 		{
+			end = new Point(10, baseline-30-1);
 			start = new Point(0, 0);
 			obstacles = new ArrayList<Obstacle>();
 			obstacles.add(new Book(300, baseline-70));	
@@ -90,7 +89,6 @@ public class Level {
 			{
 			   obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline+30));
 			}
-			end = new Point(10, baseline-30-1);
 			
 			platforms = new ArrayList<Platform>();
 			platforms.add(new Platform(460, baseline-70, Obstacle.WIDTH, Obstacle.HEIGHT));
@@ -111,18 +109,13 @@ public class Level {
 		else if (level == 4)
 		{
 			start = new Point(0, 0);
-			end = new Point(1000, 690);
+			end = new Point(955, 690);
+			
 			obstacles = new ArrayList<Obstacle>();
-			//obstacles.add(new Book(180, baseline-30));
-			//obstacles.add(new Book(210, baseline-30));
 			obstacles.add(new Book(890, baseline-25));
 			obstacles.add(new Book(700, baseline-400));
 			obstacles.add(new Book(725, baseline-400));
-			
 			obstacles.add(new ToxicAP(400, baseline-308));
-			
-			//obstacles.add(new Seagull(550, baseline-50));
-			//obstacles.add(new Seagull(660, baseline-50));
 			obstacles.add(new Seagull(200, baseline-350));
 			obstacles.add(new Seagull(900, baseline-290));
 			
@@ -208,7 +201,7 @@ public class Level {
 	}
 	
 	
-	// checks if location to move to, returns location to move to
+	// checks if location to move to, deals with collisions in the x-direction, returns location to move to
 	// or null, if the location is outside of the grid bounds
 	public Point checkNextLoc(Point loc, Controller ctrl, int levelNum, int xState, int yState)
 	{
@@ -230,11 +223,6 @@ public class Level {
 					return point;
 				
 				}
-			}
-			if (yState == Player.STILL)
-			{
-				if (ctrl.getPlayer().isOnPlat() == true)
-					ctrl.getPlayer().setPlatState(false);
 			}
 			return point;
 		}
