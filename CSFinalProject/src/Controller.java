@@ -115,7 +115,6 @@ public class Controller {
 					{
 						if (plat.intersects(new Rectangle((int) player.getX()+10, (int)player.getY(), pWidth-10, pHeight + 2)))
 						{
-							player.setYState(Player.DOWN);
 							yPos = (int) plat.getY() - pHeight;
 							jumpMoveCounter = 0;
 							player.setPlatState(true);
