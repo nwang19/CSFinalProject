@@ -143,7 +143,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	            Level lev = control.getLevel();
 	            for (Platform plat : lev.getPlatforms()) 
 	            {
-	                g.setColor(Color.black);
+	                g.setColor(new Color(224, 205, 158));
 	                g.drawRect((int) plat.getX(), (int) plat.getY(),(int) plat.getWidth(), (int)plat.getHeight());
 	                g.fillRect((int) plat.getX(), (int) plat.getY(), (int) plat.getWidth(), (int) plat.getHeight());
 	            }
