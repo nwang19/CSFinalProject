@@ -29,12 +29,12 @@ public class Level {
 			obstacles.add(new ToxicAP(200-Obstacle.WIDTH, baseline-408));
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += 300)
-				platforms.add(new Platform(x, baseline, 300, 20));
-			platforms.add(new Platform(0, baseline - 400, 300, 20));
-			platforms.add(new Platform(350, baseline - 350, 250, 20));
-			platforms.add(new Platform(550, baseline - 200, 120, 20));
-			platforms.add(new Platform(180, baseline - 125, 180, 20));
-			platforms.add(new MovingObject(70, baseline - 50, 300, 20, Player.LEFT, 25, 500));
+				platforms.add(new Platform(x, baseline, 300, 31));
+			platforms.add(new Platform(0, baseline - 400, 300, 31));
+			platforms.add(new Platform(350, baseline - 350, 250, 31));
+			platforms.add(new Platform(550, baseline - 200, 120, 31));
+			platforms.add(new Platform(180, baseline - 125, 180, 31));
+			platforms.add(new MovingObject(70, baseline - 50, 300, 31, Player.LEFT, 25, 500));
 		}
 		else if (level == 2)
 		{
@@ -55,13 +55,12 @@ public class Level {
 			
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += 300)
-				platforms.add(new Platform(x, baseline,300, 20));
-			platforms.add(new Platform(0, baseline - 400, 150, 20));
-			platforms.add(new Platform(180, baseline - 200, 100, 20));
-			platforms.add(new Platform(250, baseline - 350, 200, 20));
-			//platforms.add(new MovingObject(250, baseline - 350, 250, 20, Player.LEFT, 25, 500));
-			platforms.add(new Platform(550, baseline - 420, 120, 20));
-			platforms.add(new Platform(700, baseline - 280, 100, 20));
+				platforms.add(new Platform(x, baseline,300, 31));
+			platforms.add(new Platform(0, baseline - 400, 150, 31));
+			platforms.add(new Platform(180, baseline - 200, 100, 31));
+			platforms.add(new Platform(250, baseline - 350, 200, 31));
+			platforms.add(new Platform(550, baseline - 420, 120, 31));
+			platforms.add(new Platform(700, baseline - 280, 100, 31));
 		}
 		else if (level == 3)
 		{
@@ -91,12 +90,12 @@ public class Level {
 			
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += 300)
-				platforms.add(new Platform(x, baseline, 300, 20));
-			platforms.add(new Platform(0, baseline - 400, 320, 20));
-			platforms.add(new Platform(300, baseline - 280, 100, 20));
-			platforms.add(new Platform(415, baseline - 375, 200, 20));
-			platforms.add(new Platform(600, baseline - 250, 120, 20));
-			platforms.add(new Platform(500, baseline - 120, 100, 20));
+				platforms.add(new Platform(x, baseline, 300, 31));
+			platforms.add(new Platform(0, baseline - 400, 320, 31));
+			platforms.add(new Platform(300, baseline - 280, 100, 31));
+			platforms.add(new Platform(415, baseline - 375, 200, 31));
+			platforms.add(new Platform(600, baseline - 250, 120, 31));
+			platforms.add(new Platform(500, baseline - 120, 100, 31));
 			
 		}
 		else if (level == 4)
@@ -119,11 +118,11 @@ public class Level {
 			
 			platforms = new ArrayList<Platform>();
 			for (int x = 0; x < (int)end.getX(); x += 300)
-				platforms.add(new Platform(x, baseline, 300, 20));
-			platforms.add(new Platform(0, baseline - 400, 180, 20));
-			platforms.add(new Platform(275, baseline - 300, 250, 20));
-			platforms.add(new Platform(590, baseline - 375, 200, 20));
-			platforms.add(new Platform(765, baseline - 250, 100, 20));
+				platforms.add(new Platform(x, baseline, 300, 31));
+			platforms.add(new Platform(0, baseline - 400, 180, 31));
+			platforms.add(new Platform(275, baseline - 300, 250, 31));
+			platforms.add(new Platform(590, baseline - 375, 200, 31));
+			platforms.add(new Platform(765, baseline - 250, 100, 31));
 		}
 	}
 	
