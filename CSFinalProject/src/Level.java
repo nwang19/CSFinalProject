@@ -41,9 +41,9 @@ public class Level {
 				start = new Point(0, 0);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			for(int i = 1; i < 8; i++)
+			for(int i = 1; i < 11; i++)
 			{
-				obstacles.add(new ToxicAP(625 -(i *Obstacle.WIDTH), baseline-419));
+				obstacles.add(new ToxicAP(700 -(i *Obstacle.WIDTH), baseline-419));
 			}
 			for(int i = 1; i < 20; i++)
 			{
@@ -55,20 +55,20 @@ public class Level {
 			   obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline+50));
 			}
 				
-			obstacles.add(new Book(200, baseline-245));
-			obstacles.add(new Seagull(400, baseline-65));
-			obstacles.add(new Seagull(700, baseline-65));
+			obstacles.add(new Book(200, baseline-235));
+			//obstacles.add(new Seagull(400, baseline-65));
+			//obstacles.add(new Seagull(700, baseline-65));
 			obstacles.add(new Seagull(760, baseline-480)); 
 			
 			platforms = new ArrayList<Platform>();
 			platforms.add(new Platform(0, baseline - 450, 150, 31));
-			platforms.add(new Platform(120, baseline - 419, 300, 31));
+			platforms.add(new Platform(120, baseline - 419, 280, 31));
+			platforms.add(new Platform(400, baseline - 409, 300, 21));
 			platforms.add(new Platform(460, baseline - 470, 30, 31));
-			platforms.add(new Platform(500, baseline - 470, 30, 31));
 			platforms.add(new Platform(580, baseline - 470, 30, 31));
 			platforms.add(new Platform(700, baseline - 419, 90, 31));
 			platforms.add(new MovingObject(705, baseline - 300, 150, 31, Player.LEFT, 420, 1000));
-			platforms.add(new Platform(120, baseline - 215, 300, 31));
+			platforms.add(new Platform(120, baseline - 215, 880, 31));
 			platforms.add(new Platform(0, baseline-30, 80, 31));
 			platforms.add(new MovingObject(100, baseline-30, 200, 31, Player.LEFT, 80, 840));
 			platforms.add(new Platform(840, baseline-30, 160, 31));
@@ -77,10 +77,7 @@ public class Level {
 		{
 			start = new Point(0, 0);
 			obstacles = new ArrayList<Obstacle>();
-			
-
 			obstacles.add(new Book(300, baseline-70));	
-			obstacles.add(new Book(505, baseline-70));
 			obstacles.add(new Book(620, baseline-70));
 			
 			obstacles.add(new Seagull(600, baseline-435));			
@@ -93,9 +90,10 @@ public class Level {
 			{
 			   obstacles.add(new ToxicAP(1000 - (i *Obstacle.WIDTH), baseline+30));
 			}
-			end = new Point(0, 690);
+			end = new Point(10, baseline-30-1);
 			
 			platforms = new ArrayList<Platform>();
+			platforms.add(new Platform(460, baseline-70, Obstacle.WIDTH, Obstacle.HEIGHT));
 			platforms.add(new Platform(0, baseline - 450, 320, 31));
 			platforms.add(new Platform(290, baseline - 420, 31, 100));
 			platforms.add(new Platform(900, baseline - 350, 50, 30));
@@ -115,16 +113,16 @@ public class Level {
 			start = new Point(0, 0);
 			end = new Point(1000, 690);
 			obstacles = new ArrayList<Obstacle>();
-			obstacles.add(new Book(180, baseline-30));
-			obstacles.add(new Book(210, baseline-30));
-			obstacles.add(new Book(890, baseline-30));
-			obstacles.add(new Book(700, baseline-410));
-			obstacles.add(new Book(725, baseline-410));
+			//obstacles.add(new Book(180, baseline-30));
+			//obstacles.add(new Book(210, baseline-30));
+			obstacles.add(new Book(890, baseline-25));
+			obstacles.add(new Book(700, baseline-400));
+			obstacles.add(new Book(725, baseline-400));
 			
 			obstacles.add(new ToxicAP(400, baseline-308));
 			
-			obstacles.add(new Seagull(550, baseline-50));
-			obstacles.add(new Seagull(660, baseline-50));
+			//obstacles.add(new Seagull(550, baseline-50));
+			//obstacles.add(new Seagull(660, baseline-50));
 			obstacles.add(new Seagull(200, baseline-350));
 			obstacles.add(new Seagull(900, baseline-290));
 			
@@ -132,7 +130,7 @@ public class Level {
 			for (int x = 0; x < (int)end.getX(); x += 300)
 				platforms.add(new Platform(x, baseline, 300, 31));
 			platforms.add(new Platform(0, baseline - 400, 180, 31));
-			platforms.add(new Platform(275, baseline - 300, 250, 31));
+			platforms.add(new Platform(275, baseline - 300, 310, 31));
 			platforms.add(new Platform(590, baseline - 375, 200, 31));
 			platforms.add(new MovingObject(765, baseline-250, 125, 31, Player.LEFT, 700, 860));
 		}
