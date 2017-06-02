@@ -21,22 +21,27 @@ public class Controller {
 		jumpMoveCounter = 0;
 	}
 
+	//sets gui
 	public void setGui(GUI g) {
 		gui = g;
 	}
 
+	// returns level object
 	public Level getLevel() {
 		return level;
 	}
 
+	//returns player
 	public Player getPlayer() {
 		return player;
 	}
 
+	//returns current level number 
 	public int getLevNum() {
 		return levelNum;
 	}
 
+	//changes current level number
 	public void setLevNum(int n) {
 		levelNum = n;
 	}
@@ -53,11 +58,11 @@ public class Controller {
 		jumpMoveCounter = 0;
 	}
 
+	// goes to next level
 	public void nextLevel() {
 		levelNum++;
 		if (levelNum <= 4)
 		{
-			//levelNum++; COME BACK AND CHECK THIS
 			initialize();
 		}
 	}
@@ -72,7 +77,9 @@ public class Controller {
 			else
 				player.setLocation(nextLoc);
 			if (player.contains(level.getEnd()))
+			{
 				nextLevel();
+			}
 			gui.repaint();
 		}
 	}
