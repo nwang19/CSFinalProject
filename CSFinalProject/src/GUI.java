@@ -28,9 +28,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        ClassLoader cldr = this.getClass().getClassLoader();
 	        ImageIcon playerIcon = new ImageIcon(cldr.getResource("PlayerImage2.png"));
 	        playerImage = playerIcon.getImage();
-	        ImageIcon startIcon = new ImageIcon(cldr.getResource("GameScreens.png"));
+	        ImageIcon startIcon = new ImageIcon(cldr.getResource("StartGame.png"));
 	        startScreenImg = startIcon.getImage();
-	        ImageIcon instructIcon = new ImageIcon(cldr.getResource("Instructions (1).jpeg"));
+	        ImageIcon instructIcon = new ImageIcon(cldr.getResource("Instructions.jpeg"));
 	        instructionsImg = instructIcon.getImage();
 	        ImageIcon endIcon = new ImageIcon(cldr.getResource("EndGame.jpeg"));
 	        endScreenImg = endIcon.getImage();
@@ -38,9 +38,9 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        seagullImg = seagullIcon.getImage();
 	        ImageIcon bookIcon = new ImageIcon(cldr.getResource("Books.png"));
 	        bookImg = bookIcon.getImage();
-	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture (3).png"));
+	        ImageIcon toxicIcon = new ImageIcon(cldr.getResource("ToxicAPCulture.png"));
 	        toxicImg = toxicIcon.getImage();
-	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("PalmTreeBG (1).jpeg"));
+	        ImageIcon backgroundIcon = new ImageIcon(cldr.getResource("PalmTreeBG.jpeg"));
 	        palmTreesBG = backgroundIcon.getImage();
 	        ImageIcon endFlagIcon = new ImageIcon(cldr.getResource("EndFlag.png"));
 	        endFlag = endFlagIcon.getImage();
@@ -77,7 +77,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        {            
 	            if(control.getLevNum() > 4)
 	            {
-	                control.setLevNum(1);
+	                control.setLevNum(0);
 	            }
 	            startScreen = false;
 	            playScreen = true;
