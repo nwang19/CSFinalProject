@@ -77,7 +77,7 @@ public class GUI extends JFrame implements ActionListener, KeyListener
 	        {            
 	            if(control.getLevNum() > 4)
 	            {
-	                control.setLevNum(0);
+	                control.setLevNum(1);
 	            }
 	            startScreen = false;
 	            playScreen = true;
