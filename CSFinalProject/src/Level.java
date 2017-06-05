@@ -165,7 +165,7 @@ public class Level {
 	{
 		if (levelNum >= 0)
 		{
-			if (loc.getX() >= 0 && loc.getX() <= screenWidth && loc.getY() >= 0 && loc.getY() <= screenHeight)
+			if (loc.getX() >= 0 && loc.getX() <= screenWidth- Controller.pWidth && loc.getY() >= 0 && loc.getY() <= screenHeight)
 				return true;
 		}
 		return false;
